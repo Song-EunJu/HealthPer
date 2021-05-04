@@ -1,0 +1,23 @@
+.content{
+    width:900px;
+    margin:0 auto;
+}
+
+.menu, .category{
+    text-align:center;
+}
+
+button {
+    border-radius:8px;
+    padding:2px 5px;
+    background-color: white;
+	color: rgb(0, 0, 0);
+    border:1.3px solid rgb(0, 93, 20);
+	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;
+}
+
+button:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(45, 167, 86) 0 0px 0px 40px inset;
+}
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HealthPer</title>
+    <link href="../static/exercise.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        .cards{
+            margin-top:40px;
+            display:flex;
+            flex-direction: row;
+            justify-content:center
+        }
+
+        .card{
+            width:200px;
+            height:200px;
+            text-align: center;
+        }
+
+        .card img{
+            width:100px;
+            height:100px;
+            margin: 0 auto;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            outputEvent();
+        });
+
+        function inputEvent(){
+            $.ajax({
+                type: 'POST',
+                url: "/api/inputUrl",
+                data: {'id':3},
+                success: function (response) {
+                    if(response['result']!='success') {
+                        return;
+                    }
+                }
+            });
+        }
+        function outputEvent(){
+            $.ajax({
+                type:'GET',
+                url: "/api/outputUrl",
+                data: {},
+                success: function (response) {
+                    if(response['result']=='success') {
+                        let result =response['values'];
+                        for(let i=0;i<result.length;i++){
+                            let temp=`<div class="card">
+                                  <img src="../static/gg.png" class="card-img-top" alt="...">
+                                  <div class="card-body">
+                                      <a href=${result[i]['video_url']}>${result[i]['video_title']}</a>
+                                  </div>
+                                </div>`;
+                            $('.cards').append(temp);
+                        }
+                        return;
+                    }
+                }
+            });
+        }
+    </script>
+
+
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <button onclick="inputEvent()">로고</button>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="menu">
+            <h1 class="exercises">운동 검색</h1>
+        </div>
+        <div class="category" >
+            <button id="body" >전신</button>
+            <button id="stomach">복부</button>
+            <button id="stretching">스트레칭</button>
+            <button id="lowerBody">하체</button>
+            <button id="upperBody">상체</button>
+        </div>
+        <div class="cards">
+
+        </div>
+    </div>
+</body>
+</html>
