@@ -1,3 +1,6 @@
+body{
+    font-family: 'Nanum Gothic', sans-serif;
+}
 .content{
     width:900px;
     margin:0 auto;
@@ -7,17 +10,18 @@
     text-align:center;
 }
 
-button {
+.ex_category {
+    margin:5px;
     border-radius:8px;
     padding:2px 5px;
     background-color: white;
-	color: rgb(0, 0, 0);
-    border:1.3px solid rgb(0, 93, 20);
+	color: black;
+    border:1px solid #7B96AB;
 	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;
 }
 
-button:hover {
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgb(45, 167, 86) 0 0px 0px 40px inset;
+.ex_category:hover {
+    color: rgba(255, 255, 255, 0.85);
+	box-shadow: #7B96AB 0 0px 0px 40px inset;
 }
 
