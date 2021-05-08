@@ -36,10 +36,10 @@
         }
 
         .card img{
-            width:100px;
-            height:100px;
+            width:200px;
+            height:130px;
             text-align:center;
-            margin: 0 auto 10px auto;
+            margin: 10px auto 10px auto;
         }
 
         .video_title{
@@ -105,7 +105,7 @@
                         let result =response['values'];
                         for(let i=0;i<result.length;i++){
                             let temp=`<div class="card">
-                                  <img src="../static/gg.png" class="card-img-top" alt="...">
+                                  <img src=${result[i]['video_img']} class="card-img-top" alt="...">
                                   <div class="card-body">
                                       <a href=${result[i]['video_url']} class="video_title">${result[i]['video_title']}</a>
                                   </div>
