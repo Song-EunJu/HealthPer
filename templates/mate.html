@@ -1,0 +1,145 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--    <head>-->
+<!--        <meta charset="UTF-8">-->
+<!--        <title>HealthPer</title>-->
+<!--        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>-->
+
+<!--    </head>-->
+<!--    <script>-->
+<!--        let latitude;-->
+<!--        let longitude;-->
+<!--        Kakao.init('7fb33ceff763e904a41a50d8f009f31f');-->
+<!--        function getLocation() {-->
+<!--          if (navigator.geolocation) { // GPS를 지원하면-->
+<!--            navigator.geolocation.getCurrentPosition(function(position) {-->
+<!--              alert(position.coords.latitude + ' ' + position.coords.longitude);-->
+<!--              latitude=position.coords.latitude;-->
+<!--              longitude=position.coords.longitude;-->
+<!--            }, function(error) {-->
+<!--              console.error(error);-->
+<!--            }, {-->
+<!--              enableHighAccuracy: false,-->
+<!--              maximumAge: 0,-->
+<!--              timeout: Infinity-->
+<!--            });-->
+<!--          } else {-->
+<!--            alert('GPS를 지원하지 않습니다');-->
+<!--          }-->
+<!--        }-->
+<!--        getLocation();-->
+
+<!--&lt;!&ndash;        var mapContainer = document.getElementById('map'), // 지도를 표시할 div&ndash;&gt;-->
+<!--&lt;!&ndash;            mapOption = {&ndash;&gt;-->
+<!--&lt;!&ndash;                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표&ndash;&gt;-->
+<!--&lt;!&ndash;                level: 3 // 지도의 확대 레벨&ndash;&gt;-->
+<!--&lt;!&ndash;            };&ndash;&gt;-->
+
+<!--&lt;!&ndash;        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다&ndash;&gt;-->
+
+<!--&lt;!&ndash;        function setCenter() {&ndash;&gt;-->
+<!--&lt;!&ndash;            // 이동할 위도 경도 위치를 생성합니다&ndash;&gt;-->
+<!--&lt;!&ndash;            var moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);&ndash;&gt;-->
+
+<!--&lt;!&ndash;            // 지도 중심을 이동 시킵니다&ndash;&gt;-->
+<!--&lt;!&ndash;            map.setCenter(moveLatLon);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        function panTo() {&ndash;&gt;-->
+<!--&lt;!&ndash;            // 이동할 위도 경도 위치를 생성합니다&ndash;&gt;-->
+<!--&lt;!&ndash;            var moveLatLon = new kakao.maps.LatLng(latitude, longitude);&ndash;&gt;-->
+
+<!--&lt;!&ndash;            // 지도 중심을 부드럽게 이동시킵니다&ndash;&gt;-->
+<!--&lt;!&ndash;            // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다&ndash;&gt;-->
+<!--&lt;!&ndash;            map.panTo(moveLatLon);&ndash;&gt;-->
+
+<!--&lt;!&ndash;        panTo();&ndash;&gt;-->
+<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+<!--    <body>-->
+<!--        <div class="content">-->
+<!--            <div class="menu">-->
+<!--                <h1 class="exercises">운동 메이트 매칭</h1>-->
+<!--            </div>-->
+<!--            <div class="location">-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>운동 메이트 매칭</title>
+    <script>
+        let latitude;
+        let longitude;
+        function getLocation() {
+          if (navigator.geolocation) { // GPS를 지원하면
+            navigator.geolocation.getCurrentPosition(function(position) {
+              latitude=position.coords.latitude;
+              longitude=position.coords.longitude;
+            }, function(error) {
+              console.error(error);
+            }, {
+              enableHighAccuracy: false,
+              maximumAge: 0,
+              timeout: Infinity
+            });
+          } else {
+            alert('GPS를 지원하지 않습니다');
+          }
+        }
+        getLocation();
+
+        function hi(){
+            console.log("hi")
+        }
+        function hi2(){
+            console.log("hi2")
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <!-- 지도를 표시할 div 입니다 -->
+    <div id="map" style="width:600px;height:350px;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7fb33ceff763e904a41a50d8f009f31f"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+    </script>
+
+    <div class="content">
+        <div class="setAddr">
+            <input type="checkbox" onclick="hi()">현 위치로 설정하기
+            <input type="checkbox" onclick="hi2()">주소 설정하기
+        </div>
+        <span>원하는 운동을 선택해주세요!</span>
+
+        <div class="category" >
+            <button class="mate_category" onclick="allEx('축구')">축구</button>
+            <button class="mate_category" onclick="allEx('전신운동')">등산</button>
+            <button class="mate_category" onclick="allEx('복부운동')">런닝</button>
+            <button class="mate_category" onclick="allEx('스트레칭')">필라테스</button>
+            <button class="mate_category" onclick="allEx('하체운동')">요가</button>
+            <button class="mate_category" onclick="allEx('상체운동')">족구</button>
+            <button class="mate_category" onclick="allEx('상체운동')">농구</button>
+            <button class="mate_category" onclick="allEx('상체운동')">자전거</button>
+            <button class="mate_category" onclick="allEx('상체운동')">탁구</button>
+            <button class="mate_category" onclick="allEx('상체운동')">테니스</button>
+        </div>
+    </div>
+
+</body>
+</html>
