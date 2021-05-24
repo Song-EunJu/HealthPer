@@ -1,0 +1,98 @@
+*{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size:15px;
+}
+body{
+    background-color: #f0f1f4;
+}
+
+.menu{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.menu h1{
+    font-size:30px;
+}
+
+.content{
+    width:640px;
+    height:700px;
+    margin: 0 auto;
+    font-size:20px;
+}
+
+.option{
+    width:600px;
+    height:700px;
+    padding:20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 23%), 0 3px 10px rgb(0 0 0 / 16%);
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.option1, .option2, .option3{
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-start;
+}
+
+.map, .detail{
+    display:flex;
+    flex-direction: column;
+}
+
+.title, .category, .gender, .age, .peopleNum, .date, .map, .detail, .add, .startDate, .dueDate{
+    margin:6px;
+}
+
+textarea{
+    padding:10px;
+    border-radius:6px;
+    line-height: 1.3;
+    resize:none;
+    border-color: rgb(118, 118, 118);
+}
+
+input{
+    width:60px;
+    height:30px;
+}
+
+.add{
+    margin-top:30px;
+    text-align:center;
+}
+
+button{
+    width:90px;
+    height:40px;
+    background-color: #00477D;
+    color:white;
+    font-weight:bold;
+    border:none;
+}
+
+#title{
+    width:400px;
+    height:30px;
+    font-size:15px;
+}
+
+#category{
+    width:150px;
+    height:36px;
+    padding:0px;
+}
+
+#gender, #age{
+    width:120px;
+    height:36px;
+    padding:0px;
+}
+
+#people_num, .datepicker{
+    width:120px;
+    height:32px;
+    padding:0px;
+}

@@ -80,13 +80,13 @@
     </style>
     <script>
         $(document).ready(function () {
-            outputEvent();
+            getAll();
         });
 
-        function allEx(category){
+        function getCategory(category){
             $.ajax({
                 type: 'POST',
-                url: "/api/allEx",
+                url: "/api/getCategory",
                 data: {'category_send' : category},
                 success: function (response) {
                     if(response['result']=='success') {
@@ -112,10 +112,10 @@
             });
         }
 
-        function outputEvent(){
+        function getAll(){
             $.ajax({
                 type:'GET',
-                url: "/api/outputUrl",
+                url: "/api/getAll",
                 data: {},
                 success: function (response) {
                     if(response['result']=='success') {
@@ -147,7 +147,7 @@
 <body>
     <header>
         <div class="logo">
-            <button onclick="inputEvent()">로고</button>
+            <a href="/">로고</a>
         </div>
     </header>
 
@@ -156,12 +156,12 @@
             <h1 class="exercises">운동 검색</h1>
         </div>
         <div class="category" >
-            <button class="ex_category" onclick="allEx('전체보기')">전체보기</button>
-            <button class="ex_category" onclick="allEx('전신운동')">전신</button>
-            <button class="ex_category" onclick="allEx('복부운동')">복부</button>
-            <button class="ex_category" onclick="allEx('스트레칭')">스트레칭</button>
-            <button class="ex_category" onclick="allEx('하체운동')">하체</button>
-            <button class="ex_category" onclick="allEx('상체운동')">상체</button>
+            <button class="ex_category" onclick="getCategory('전체보기')">전체보기</button>
+            <button class="ex_category" onclick="getCategory('전신운동')">전신</button>
+            <button class="ex_category" onclick="getCategory('복부운동')">복부</button>
+            <button class="ex_category" onclick="getCategory('스트레칭')">스트레칭</button>
+            <button class="ex_category" onclick="getCategory('하체운동')">하체</button>
+            <button class="ex_category" onclick="getCategory('상체운동')">상체</button>
         </div>
         <div class="cards">
         </div>

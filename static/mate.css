@@ -1,0 +1,65 @@
+body{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.content{
+    width:1100px;
+    margin:0 auto;
+    text-align:center;
+}
+
+.setAddr{
+    margin-bottom:20px;
+}
+
+.category{
+    width:300px;
+    margin:20px auto;
+}
+
+#category {
+    padding:5px;
+}
+
+button{
+    margin:5px;
+    border-radius:8px;
+    padding:4px 5px;
+    background-color: white;
+	color: black;
+    border:1px solid #7B96AB;
+	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;
+}
+
+#people_num{
+    width:50px;
+}
+
+.setMate{
+    margin-bottom:20px;
+}
+
+.option>div{
+    margin:20px;
+}
+    /*align-content:flex-start;*/
+    /*flex-wrap:wrap;*/
+
+/*.menu, .category{*/
+/*    text-align:center;*/
+/*}*/
+
+/*.ex_category {*/
+/*    margin:5px;*/
+/*    border-radius:8px;*/
+/*    padding:4px 5px;*/
+/*    background-color: white;*/
+/*	color: black;*/
+/*    border:1px solid #7B96AB;*/
+/*	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;*/
+/*}*/
+
+/*.ex_category:hover {*/
+/*    color: rgba(255, 255, 255, 0.85);*/
+/*	box-shadow: #7B96AB 0 0px 0px 40px inset;*/
+/*}*/
+
