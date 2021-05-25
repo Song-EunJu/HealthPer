@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>레시피 공유</title>
+    <link href="../static/recipe.css" rel="stylesheet" type="text/css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        .cards{
+            margin: 40px auto;
+            width:900px;
+            display:flex;
+            flex-direction: row;
+            justify-content:flex-start;
+            flex-wrap:wrap;
+        }
+
+        .card{
+            display:flex;
+            flex-direction:column;
+            border:1px solid ghostwhite;
+            margin-right:22px;
+            margin-bottom:30px;
+            width:200px;
+            height:200px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px #00477D;
+            border-radius:10px;
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        }
+
+        .mate_title{
+            float:left;
+            padding-left:8px;
+        }
+
+        .mate_num{
+            float:right;
+            padding-right:8px;
+        }
+
+        .card img{
+            width:170px;
+            height:161px;
+            text-align:center;
+            margin: 10px auto 0 auto;
+        }
+    </style>
+    <script>
+
+        let latitude;
+        let longitude;
+        function getLocation() {
+          if (navigator.geolocation) { // GPS를 지원하면
+            navigator.geolocation.getCurrentPosition(function(position) {
+              latitude=position.coords.latitude;
+              longitude=position.coords.longitude;
+            }, function(error) {
+              console.error(error);
+            }, {
+              enableHighAccuracy: false,
+              maximumAge: 0,
+              timeout: Infinity
+            });
+          } else {
+            alert('GPS를 지원하지 않습니다');
+          }
+        }
+        getLocation();
+
+        function withMate(){
+            $('.option').css("display","block");
+        }
+
+        function searchMate(){
+            let category = $('#category').val();
+            let age = $('input[name="age"]:checked').val();
+            let num = $('#people_num').val();
+            let gender = $('input[name="gender"]:checked').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/searchMate",
+                data: {'category_send':category, 'age_send':age, 'num_send':num, 'gender_send':gender},
+                success: function (response) {
+                    if(response['result']=='success') {
+                        let result = response['values'];
+                        if(result.length!=0){
+                            $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
+                            for(let i=0;i<result.length;i++){
+                                let temp=`<div class="card">
+                                      <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
+                                      <div class="desc">
+                                          <a href="" class="mate_title">${result[i]['mate_title']}</a>
+                                          <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
+                                      </div>
+                                </div>`;
+                                $('.cards').append(temp);
+                            }
+                        }
+                        else
+                            $('.cards').append(`<span style="margin:0 auto">검색 결과가 없습니다</span>`);
+
+                    }
+                }
+            });
+        }
+
+        function getMate(){ // 전체 메이트 글 보여주기
+            $.ajax({
+                type: 'GET',
+                url: "/api/getMate",
+                data: {},
+                success: function (response) {
+                    if(response['result']=='success') {
+                        let result = response['matePosts'];
+                        // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
+
+                        for (let i=0;i<result.length;i++) {
+                            let temp=`<div class="card">
+                                  <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
+                                  <div class="desc">
+                                      <a href="" class="mate_title">${result[i]['mate_title']}</a>
+                                      <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
+                                  </div>
+                            </div>`;
+                            $('.cards').append(temp);
+                        }
+                        return;
+                    }
+                }
+            });
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+
+    <div class="content">
+        <div class="menu">
+            <h1>레시피 및 식단 공유</h1>
+        </div>
+        <a href="/postMeal">식단 등록</a>
+
+        <div class="setAddr">
+            <input type="radio" name="address" value="now">현 위치로 설정하기
+            <input type="radio" name="address" value="set">주소 설정하기
+        </div>
+
+        <div class="category">
+            <select class="custom-select" id="category">
+                <option selected value="">원하는 운동을 선택해주세요!</option>
+                <option value="축구">축구</option>
+                <option value="러닝">러닝</option>
+                <option value="필라테스">필라테스</option>
+                <option value="배드민턴">배드민턴</option>
+                <option value="요가">요가</option>
+                <option value="족구">족구</option>
+                <option value="농구">농구</option>
+                <option value="자전거">자전거</option>
+                <option value="탁구">탁구</option>
+                <option value="테니스">테니스</option>
+            </select>
+        </div>
+
+        <div class="setMate">
+            <button class="mate" onclick="withMate()">같이 할래요!</button>
+            <button class="mate" onclick="alone()">혼자 할래요!</button>
+        </div>
+
+        <div class="option" style="display:none">
+            <div class="age">
+                나이
+                <input type="radio" name="age" value="10">10대
+                <input type="radio" name="age" value="20">20대
+                <input type="radio" name="age" value="30">30대
+                <input type="radio" name="age" value="40">40대
+                <input type="radio" name="age" value="50">50대 이상
+            </div>
+            <div class="peopleNum">
+                인원 <input type="text" id="people_num"/>
+            </div>
+            <div class="gender">
+                성별
+                <input type="radio" name="gender" value="남성">남성
+                <input type="radio" name="gender" value="여성">여성
+                <input type="radio" name="gender" value="무관">성별 무관
+            </div>
+            <button onclick="">초기화</button>
+            <button onclick="searchMate()">검색</button>
+
+        </div>
+        <div class="cards">
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -14,8 +14,10 @@
             crossorigin="anonymous">
 
         <link href="" rel="stylesheet" type="text/css" />
+<!--        <link rel="preconnect" href="https://fonts.gstatic.com">-->
+<!--        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap" rel="stylesheet">
         <!-- JS -->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
@@ -30,20 +32,18 @@
             integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
             crossorigin="anonymous"></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
         <title>Healthper :: 당신의 건강을 돕는 플랫폼</title>
         <style>
             * {
                 box-sizing: border-box;
-            }
-
-            body{
-                font-family: 'Nanum Gothic', sans-serif;
+                /*font-family: 'Nanum Gothic', sans-serif;*/
+                font-family: 'Nanum Myeongjo', serif;
+                color:black;
             }
 
             a:link {
-                color: red;
                 text-decoration: none;
             }
 
@@ -89,7 +89,6 @@
                 margin: auto;
                 padding-left:20px;
                 align-content:center;
-
             }
 
             .headline{
@@ -108,7 +107,6 @@
             .logo{
                 margin-top:10px;
             }
-
 
             .menu{
                 display:flex;
@@ -132,7 +130,7 @@
             }
 
             .middle{
-                height:500px;
+                height:750px;
                 margin:0 auto;
             }
 
@@ -140,7 +138,77 @@
                 width:60%;
                 margin:0 auto;
             }
+
+            .bottom{
+                width:70%;
+                margin:20px auto;
+                display:flex;
+                flex-direction:row;
+                justify-content:space-around;
+            }
+
+            .youtube, .diet_food, .fitness_equip {
+                display:flex;
+                flex-direction:column;
+            }
+
         </style>
+        <script>
+            $(document).ready(function () {
+                showLink();
+            });
+
+            function showLink(){
+                $('.youtube_links').empty()
+                $('.food_links').empty()
+
+                $.ajax({
+                    type:'GET',
+                    url: "/api/showLink",
+                    data: {},
+                    success: function (response) {
+                        if(response['result']=='success') {
+                            let youtube = response['youtube_links'];
+                            let food = response['food_links'];
+                            let temp;
+                            for (let i=0;i<youtube.length;i++) {
+                                if(youtube[i]['link_title'].length>=15){
+                                    temp=`<div class="link">
+                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title'].substring(0,15)} ...</a>
+                                            <button onclick="linkLike()">좋아요</button>
+                                            </div>`;
+                                }
+                                else{
+                                    temp=`<div class="link">
+                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
+                                            </div>`;
+                                }
+                                $('.youtube_links').append(temp);
+                            }
+                            for (let i=0;i<food.length;i++) {
+                                if(youtube[i]['link_title'].length>=15){
+                                    temp=`<div class="link">
+                                            <a href=${food[i]['link_url']}>${food[i]['link_title'].substring(0,15)} ...</a>
+                                            </div>`;
+                                }
+                                else{
+                                    temp=`<div class="link">
+                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
+                                            </div>`;
+                                }
+                                $('.food_links').append(temp);
+                            }
+                            return;
+                        }
+                    }
+                });
+            }
+
+            function linkLike(){
+
+            }
+
+        </script>
     </head>
 
     <body>
@@ -178,10 +246,10 @@
                         <a href="/mate">운동 메이트 찾기</a>
                     </li>
                     <li>
-                        <a href="">운동 장소 검색</a>
+                        <a href="/recipe">식단 찾기</a>
                     </li>
                     <li>
-                        <a href="">식단 찾기</a>
+                        <a href="">제품 소개</a>
                     </li>
                 </ul>
                 <div class="empty">
@@ -249,12 +317,25 @@
                     </button>
                 </div>
             </div>
+
             <div class="bottom">
                 <div class="youtube">
+                    <h5>유튜브 채널 링크</h5>
+                    <div class="youtube_links">
 
+                    </div>
                 </div>
+                <div class="diet_food">
+                    <h5>다이어트 식품 사이트</h5>
+                    <div class="food_links">
 
+                    </div>
+                </div>
+                <div class="fitness_equip">
+                    <h5>운동기구 사이트</h5>
+                </div>
             </div>
+
         </div>
     </body>
 </html>
