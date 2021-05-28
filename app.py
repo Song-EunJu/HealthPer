@@ -9,12 +9,19 @@ db = client.sw_project
 
 # oAuth
 
-app.config['SECRET_KEY'] = 'LuffyIsLonely'
-app.config['GOOGLE_OAUTH2_CLIENT_SECRETS_FILE'] = 'client_secret_.json'
-app.config['GOOGLE_OAUTH2_CLIENT_ID'] = '653440379691-3bdrvt9m65scj0mgr8hort4eu9c3ghg1.apps.googleusercontent.com'
-app.config['GOOGLE_OAUTH2_CLIENT_SECRET'] = 'rAQeN-jrkM20fyUrE9Np5O5a'
+# app.config['SECRET_KEY'] = 'LuffyIsLonely'
+# app.config['GOOGLE_OAUTH2_CLIENT_SECRETS_FILE'] = 'client_secret_.json'
+# app.config['GOOGLE_OAUTH2_CLIENT_ID'] = '653440379691-3bdrvt9m65scj0mgr8hort4eu9c3ghg1.apps.googleusercontent.com'
+# app.config['GOOGLE_OAUTH2_CLIENT_SECRET'] = 'rAQeN-jrkM20fyUrE9Np5O5a'
+#
+# oauth2 = UserOAuth2(app)
 
-oauth2 = UserOAuth2(app)
+# JWT
+SECRET_KEY = 'luffyIsLonely'
+
+import jwt
+import datetime
+import hashlib
 
 @app.route('/')
 def index():
@@ -27,6 +34,7 @@ def login():
 @app.route('/register')
 def register():
     return render_template('register.html')
+
 @app.route('/exercise')
 def exercise():
     return render_template('exercise.html')
@@ -47,14 +55,51 @@ def recipe():
 def postMeal():
     return render_template('postMeal.html')
 
-@app.route('/test')
-@oauth2.required
-def test():
-    if oauth2.has_credentials():
-        print('login OK')
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    id_receive = request.form['id_give']
+    pw_receive = request.form['pw_give']
+
+    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+
+    person = db.user.find_one({'id': id_receive, 'pw': pw_hash})
+
+    if person is not None: #person이 있으면
+        payload = {
+            'id': id_receive,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=1000)
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        return jsonify({'result': 'success', 'token': token})
     else:
-        print('login NO')
-    return render_template('test.html')
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+
+@app.route('/api/register', methods=['POST'])
+def api_register():
+    id_receive = request.form['id_give']
+    pw_receive = request.form['pw_give']
+    nick_receive = request.form['nick_give']
+
+    id_already = db.user.find_one({'id': id_receive})
+    nick_already = db.user.find_one({'nick':nick_receive})
+
+    if id_already is not None: #id가 있으면
+        return jsonify({'result': 'fail_id', 'msg': '이미 있는 아이디입니다'})
+    elif nick_already is not None: #닉네임이 있으면
+        return jsonify({'result': 'fail_nick', 'msg': '이미 있는 닉네임입니다'})
+    else:
+        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+        db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nick_receive})
+        return jsonify({'result': 'success'})
+#
+# @app.route('/test')
+# @oauth2.required
+# def test():
+#     if oauth2.has_credentials():
+#         print('login OK')
+#     else:
+#         print('login NO')
+#     return render_template('test.html')
 
 @app.route('/api/showLink', methods=['GET'])
 def api_showLink():

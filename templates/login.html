@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>로그인</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+             integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+        <!-- JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+        <!-- 구글폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+
+        <!-- 로그인 form 연결 -->
+
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <!-- 쿠키 사용을 위한 Jquery-cookie 임포트 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	    <link rel="stylesheet" href="../static/login.css" type="text/css">
+
+        <script>
+            $('.message a').click(function(){
+               $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+
+            function login(){
+                $.ajax({
+                    type:'POST',
+                    url:'/api/login',
+                    data:{
+                        'id_give': $('#userId').val(),
+                        'pw_give': $('#password').val()
+                    },
+                    success:function(response){
+                        if(response['result']=='success'){
+                            console.log("hi")
+                            $.cookie('token',response['token']);
+                            alert('로그인 완료');
+                            // window.location.href='/'
+                        }
+                        else {
+
+                            alert(response['msg']);
+                            // window.location.href = '/login'
+                        }
+                    }
+                });
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="wrap">
+            <div class="top">
+                <div class="login">
+                    <ul style="list-style : none;">
+                        <li>
+                            <a href="/login">로그인</a>
+                        </li>
+                        <li>
+                            <a href="/register">회원가입</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border:1px silver;margin:0;" width="100%">
+
+            <div class="headline">
+                <div class="logos">
+                    <div class="logo_img">
+                        <img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;">
+                    </div>
+
+                    <div class="logo">
+                        <h2>Healthper</h2>
+                    </div>
+                </div>
+
+                <ul class="menu" style="list-style : none;">
+                    <li>
+                        <a href="/exercise">운동검색</a>
+                    </li>
+                    <li>
+                        <a href="/mate">운동 메이트 찾기</a>
+                    </li>
+                    <li>
+                        <a href="/recipe">식단 찾기</a>
+                    </li>
+                    <li>
+                        <a href="">제품 소개</a>
+                    </li>
+                </ul>
+                <div class="empty">
+
+                </div>
+            </div>
+
+            <div class="login-page">
+              <div class="form">
+                <form class="login-form">
+                  <input type="text" placeholder="id" id="userId"/>
+                  <input type="password" placeholder="password" id="password"/>
+                  <button onclick="login()">login</button>
+                  <p class="message">Not registered? <a href="/register">Create an account</a></p>
+                </form>
+              </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>공부록: 기록으로 남긴 공부</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+             integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+        <!-- JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+        <!-- 구글폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+
+        <!-- 로그인 form 연결 -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="../static/register.css" type="text/css">
+
+
+        <script>
+            $('.message a').click(function(){
+               $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+
+            function register(){
+                $.ajax({
+                    type:'POST',
+                    url:'/api/register',
+                    data: {
+                        'id_give': $('#userId').val(),
+                        'pw_give': $("#password").val(),
+                        'nick_give': $('#nickname').val()
+                    },
+                    success:function(response){
+                        console.log(response['nickname']);
+                        if(response['result']=='success') {
+                            alert('회원가입 완료');
+                            window.location.href='/login'
+                        }
+                        else {
+                            alert(response['msg']);
+                            if(response['result']=='fail_id') {
+                                $('#userId').val('');
+                                $('#userId').focus();
+                                return ;
+                            }
+                            else if(response['result']=='fail_nick') {
+                                $('#nickname').val('');
+                                $('#nickname').focus();
+                                return ;
+                            }
+                        }
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="login-page">
+              <div class="form">
+                <form class="register-form">
+                  <input type="text" placeholder="name" id="userId"/>
+                  <input type="password" placeholder="password" id="password"/>
+                  <input type="text" placeholder="nickname" id="nickname"/>
+                  <button onclick="register()">create</button>
+                  <p class="message">Already registered? <a href="/login">Sign In</a></p>
+                </form>
+              </div>
+            </div>
+        </div>
+    </body>
+</html>
