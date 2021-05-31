@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-
         <!-- JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -33,9 +32,104 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!--        <script src="http://code.jquery.com/jquery-latest.min.js"></script>-->
 
 	    <link rel="stylesheet" href="../static/login.css" type="text/css">
+        <style>
+            * {
+              box-sizing: border-box;
+              font-family: 'Nanum Myeongjo', serif;
+              color:black;
+            }
 
+            a:link {
+              text-decoration: none;
+            }
+
+            a:visited {
+              color: black;
+              text-decoration: none;
+            }
+
+            a:hover {
+              color: blue;
+              text-decoration: underline;
+            }
+
+            .wrap {
+              width:100%;
+              margin: 0 auto;
+            }
+
+            .top {
+              width:100%;
+              margin:10px auto 0px auto;
+              background: #fff;
+              height: 20px;
+            }
+
+            .login {
+              display:flex;
+              justify-content:flex-end;
+              float:right;
+              width : 30%;
+              height: 20px;
+              margin-bottom:15px;
+              display:block;
+            }
+
+            .login ul{
+              height: 100%;
+            }
+
+            .login ul li{
+              height:100%;
+              float: left;
+              margin: auto;
+              padding-left:20px;
+              align-content:center;
+            }
+
+            .headline{
+              display:flex;
+              margin-top:10px;
+            }
+
+            .logos{
+              display:flex;
+              flex:1;
+              flex-direction:row;
+              justify-content:center;
+              align-content:center;
+            }
+
+            .logo{
+              margin-top:10px;
+            }
+
+            .menu{
+              display:flex;
+              flex-direction:row;
+              flex:2.4;
+              justify-content:center;
+              align-content: center;
+              justify-content: space-between;
+              padding:0;
+            }
+
+            .menu li{
+              display:flex;
+              flex-direction:row;
+              padding-top:22px;
+            }
+
+            .empty{
+              display:flex;
+              flex:1;
+            }
+
+
+        </style>
         <script>
             $('.message a').click(function(){
                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
@@ -51,13 +145,12 @@
                     },
                     success:function(response){
                         if(response['result']=='success'){
-                            console.log("hi")
                             $.cookie('token',response['token']);
                             alert('로그인 완료');
-                            // window.location.href='/'
+                            window.location.href='/'
                         }
                         else {
-
+                            console.log("hi2")
                             alert(response['msg']);
                             // window.location.href = '/login'
                         }
@@ -69,49 +162,49 @@
 
     <body>
         <div class="wrap">
-            <div class="top">
-                <div class="login">
-                    <ul style="list-style : none;">
-                        <li>
-                            <a href="/login">로그인</a>
-                        </li>
-                        <li>
-                            <a href="/register">회원가입</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <hr style="border:1px silver;margin:0;" width="100%">
+<!--            <div class="top">-->
+<!--                <div class="login">-->
+<!--                    <ul style="list-style : none;">-->
+<!--                        <li>-->
+<!--                            <a href="/login">로그인</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="/register">회원가입</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <hr style="border:1px silver;margin:0;" width="100%">-->
 
-            <div class="headline">
-                <div class="logos">
-                    <div class="logo_img">
-                        <img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;">
-                    </div>
+<!--            <div class="headline">-->
+<!--                <div class="logos">-->
+<!--                    <div class="logo_img">-->
+<!--                        <a href="/"><img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;"></a>-->
+<!--                    </div>-->
 
-                    <div class="logo">
-                        <h2>Healthper</h2>
-                    </div>
-                </div>
+<!--                    <div class="logo">-->
+<!--                        <h2>Healthper</h2>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <ul class="menu" style="list-style : none;">
-                    <li>
-                        <a href="/exercise">운동검색</a>
-                    </li>
-                    <li>
-                        <a href="/mate">운동 메이트 찾기</a>
-                    </li>
-                    <li>
-                        <a href="/recipe">식단 찾기</a>
-                    </li>
-                    <li>
-                        <a href="">제품 소개</a>
-                    </li>
-                </ul>
-                <div class="empty">
+<!--                <ul class="menu" style="list-style : none;">-->
+<!--                    <li>-->
+<!--                        <a href="/exercise">운동검색</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="/mate">운동 메이트 찾기</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="/recipe">식단 찾기</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="">제품 소개</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <div class="empty">-->
 
-                </div>
-            </div>
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="login-page">
               <div class="form">

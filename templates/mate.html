@@ -65,6 +65,8 @@
               maximumAge: 0,
               timeout: Infinity
             });
+            console.log(latitude);
+            console.log(longitude);
           } else {
             alert('GPS를 지원하지 않습니다');
           }
@@ -94,7 +96,7 @@
                                 let temp=`<div class="card">
                                       <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
                                       <div class="desc">
-                                          <a href="" class="mate_title">${result[i]['mate_title']}</a>
+                                          <a href="/" class="mate_title">${result[i]['mate_title']}</a>
                                           <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
                                       </div>
                                 </div>`;
@@ -123,7 +125,7 @@
                             let temp=`<div class="card">
                                   <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
                                   <div class="desc">
-                                      <a href="" class="mate_title">${result[i]['mate_title']}</a>
+                                      <a href="/mateDetail" class="mate_title">${result[i]['mate_title']}</a>
                                       <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
                                   </div>
                             </div>`;
@@ -142,19 +144,19 @@
 
 <body>
 
-    <!-- 지도를 표시할 div 입니다 -->
-    <!--<div id="map" style="width:600px;height:350px;"></div>-->
-    <!--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7fb33ceff763e904a41a50d8f009f31f"></script>-->
-    <!--<script>-->
-    <!--    var mapContainer = document.getElementById('map'), // 지도를 표시할 div-->
-    <!--        mapOption = {-->
-    <!--            center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표-->
-    <!--            level: 3 // 지도의 확대 레벨-->
-    <!--        };-->
+<!--    지도를 표시할 div 입니다-->
+    <div id="map" style="width:600px;height:350px;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7fb33ceff763e904a41a50d8f009f31f"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
 
-    <!--    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다-->
-    <!--    var map = new kakao.maps.Map(mapContainer, mapOption);-->
-    <!--</script>-->
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+    </script>
 
     <div class="content">
         <div class="menu">

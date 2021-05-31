@@ -17,7 +17,7 @@ db = client.sw_project
 # oauth2 = UserOAuth2(app)
 
 # JWT
-SECRET_KEY = 'luffyIsLonely'
+SECRET_KEY = 'luffy'
 
 import jwt
 import datetime
@@ -42,6 +42,10 @@ def exercise():
 @app.route('/mate')
 def mate():
     return render_template('mate.html')
+
+@app.route('/mateDetail')
+def mateDetail():
+    return render_template('mateDetail.html')
 
 @app.route('/postMate')
 def postMate():
@@ -69,7 +73,7 @@ def api_login():
             'id': id_receive,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=1000)
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         return jsonify({'result': 'success', 'token': token})
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
@@ -91,7 +95,19 @@ def api_register():
         pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
         db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nick_receive})
         return jsonify({'result': 'success'})
-#
+
+@app.route('/api/userInfo', methods=['GET'])
+def api_userInfo():
+    token_receive = request.headers['token_give']
+
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user = db.user.find_one({'id': payload['id']}, {'_id': 0})
+        return jsonify({'result':'success','nickname': user['nick']})
+
+    except jwt.ExpiredSignatureError:
+        return jsonify({'result':'fail'})
+
 # @app.route('/test')
 # @oauth2.required
 # def test():
@@ -131,6 +147,15 @@ def api_getCategory():
 def api_getAll():
     # page = request.args.get('page',1,type=int)
     values = list(db.videos.find({},{'_id': 0}));
+    return jsonify({'result': 'success', 'values': values})
+
+@app.route('/api/mateDetail',methods=['POST'])
+def api_mateDetail():
+    id_recv = request.form['id_send']
+    print(id_recv)
+    print(type(id_recv))
+
+    values = db.mates.find_one({'matepost_id': id_recv},{'_id': 0});
     return jsonify({'result': 'success', 'values': values})
 
 @app.route('/api/addLink',methods=['GET'])

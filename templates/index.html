@@ -1,6 +1,5 @@
 <!Doctype html>
 <html lang="ko">
-
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -14,11 +13,10 @@
             crossorigin="anonymous">
 
         <link href="" rel="stylesheet" type="text/css" />
-<!--        <link rel="preconnect" href="https://fonts.gstatic.com">-->
-<!--        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap" rel="stylesheet">
         <!-- JS -->
+
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
@@ -31,8 +29,14 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
             integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
             crossorigin="anonymous"></script>
+
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<!--          쿠키 사용을 위한 Jquery-cookie 임포트 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
         <title>Healthper :: 당신의 건강을 돕는 플랫폼</title>
         <style>
@@ -152,16 +156,38 @@
                 flex-direction:column;
             }
 
+            #userInfo {
+                display:none;
+            }
         </style>
         <script>
             $(document).ready(function () {
+                loadUserInfo();
                 showLink();
             });
+
+            function loadUserInfo(){
+                $.ajax({
+                  type: "GET",
+                  url: "/api/userInfo",
+                  headers: {'token_give' : $.cookie('token')},
+                  data: {},
+                  success: function(response){
+                      if (response['result'] == 'success'){
+                          $('#userInfo').css("display","block");
+                          $('#nickname').text(response['nickname'])
+                          $('#loginForm').css("display", "none");
+                      }
+                      // else{
+                      //     window.location.href='/login'
+                      // }
+                  }
+                })
+            }
 
             function showLink(){
                 $('.youtube_links').empty()
                 $('.food_links').empty()
-
                 $.ajax({
                     type:'GET',
                     url: "/api/showLink",
@@ -215,7 +241,8 @@
         <div class="wrap">
             <div class="top">
                 <div class="login">
-                    <ul style="list-style : none;">
+                    <span id="userInfo"><span id="nickname"></span>님 환영합니다</span>
+                    <ul id="loginForm" style="list-style : none;">
                         <li>
                             <a href="/login">로그인</a>
                         </li>

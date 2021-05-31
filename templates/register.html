@@ -46,7 +46,6 @@
                         'nick_give': $('#nickname').val()
                     },
                     success:function(response){
-                        console.log(response['nickname']);
                         if(response['result']=='success') {
                             alert('회원가입 완료');
                             window.location.href='/login'
@@ -56,12 +55,10 @@
                             if(response['result']=='fail_id') {
                                 $('#userId').val('');
                                 $('#userId').focus();
-                                return ;
                             }
                             else if(response['result']=='fail_nick') {
                                 $('#nickname').val('');
                                 $('#nickname').focus();
-                                return ;
                             }
                         }
                     }
@@ -77,7 +74,7 @@
                   <input type="text" placeholder="name" id="userId"/>
                   <input type="password" placeholder="password" id="password"/>
                   <input type="text" placeholder="nickname" id="nickname"/>
-                  <button onclick="register()">create</button>
+                  <button onclick="register();">create</button>
                   <p class="message">Already registered? <a href="/login">Sign In</a></p>
                 </form>
               </div>
