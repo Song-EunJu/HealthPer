@@ -33,11 +33,10 @@
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<!--          쿠키 사용을 위한 Jquery-cookie 임포트 -->
+        <!-- 쿠키 사용을 위한 Jquery-cookie 임포트 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
         <title>Healthper :: 당신의 건강을 돕는 플랫폼</title>
         <style>
             * {
@@ -201,12 +200,13 @@
                                 if(youtube[i]['link_title'].length>=15){
                                     temp=`<div class="link">
                                             <a href=${youtube[i]['link_url']}>${youtube[i]['link_title'].substring(0,15)} ...</a>
-                                            <button onclick="linkLike()">좋아요</button>
+                                            <button id="like" onclick="linkLike()">♡</button>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
                                             <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
+                                            <button id="like" onclick="linkLike()">♡</button>
                                             </div>`;
                                 }
                                 $('.youtube_links').append(temp);
@@ -215,11 +215,13 @@
                                 if(youtube[i]['link_title'].length>=15){
                                     temp=`<div class="link">
                                             <a href=${food[i]['link_url']}>${food[i]['link_title'].substring(0,15)} ...</a>
+                                            <button id="like" onclick="linkLike()">♡</button>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
-                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
+                                            <a href=${food[i]['link_url']}>${youtube[i]['link_title']}</a>
+                                            <button id="like" onclick="linkLike()">♡</button>
                                             </div>`;
                                 }
                                 $('.food_links').append(temp);
@@ -231,7 +233,20 @@
             }
 
             function linkLike(){
-
+                $.ajax({
+                  type: "GET",
+                  url: "/api/linkLike",
+                  headers: {'token_give' : $.cookie('token')},
+                  data: {},
+                  success: function(response){
+                      if (response['result'] == 'success'){
+                          $('#like').text('좋아요 취소')
+                      }
+                      // else{
+                      //     window.location.href='/login'
+                      // }
+                  }
+                })
             }
 
         </script>

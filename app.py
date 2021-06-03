@@ -35,6 +35,10 @@ def login():
 def register():
     return render_template('register.html')
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 @app.route('/exercise')
 def exercise():
     return render_template('exercise.html')
@@ -71,7 +75,7 @@ def api_login():
     if person is not None: #person이 있으면
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=1000)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=2000)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
         return jsonify({'result': 'success', 'token': token})
@@ -99,13 +103,13 @@ def api_register():
 @app.route('/api/userInfo', methods=['GET'])
 def api_userInfo():
     token_receive = request.headers['token_give']
-
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user = db.user.find_one({'id': payload['id']}, {'_id': 0})
         return jsonify({'result':'success','nickname': user['nick']})
 
     except jwt.ExpiredSignatureError:
+        print('hi')
         return jsonify({'result':'fail'})
 
 # @app.route('/test')
@@ -151,10 +155,7 @@ def api_getAll():
 
 @app.route('/api/mateDetail',methods=['POST'])
 def api_mateDetail():
-    id_recv = request.form['id_send']
-    print(id_recv)
-    print(type(id_recv))
-
+    id_recv = int(request.form['id_send'])
     values = db.mates.find_one({'matepost_id': id_recv},{'_id': 0});
     return jsonify({'result': 'success', 'values': values})
 
