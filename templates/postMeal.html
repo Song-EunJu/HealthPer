@@ -5,23 +5,133 @@
         <title>식단 등록 페이지</title>
 <!--        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
 
-        <link href="../static/postMate.css" rel="stylesheet" type="text/css" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
+        <style>
+            * { box-sizing:border-box; }
+
+            body {
+                background:url(https://scotch.io/wp-content/uploads/2014/07/61.jpg);
+            }
+            .container {
+                font-family:'Roboto';
+                width:600px;
+                margin:30px auto 0;
+                display:block;
+                background:#FFF;
+                padding:10px 50px 50px;
+            }
+            h2 {
+                text-align:center;
+                margin-bottom:50px;
+            }
+            h2 small {
+                font-weight:normal;
+                color:#888;
+                display:block;
+            }
+            .footer 	{ text-align:center; }
+            .footer a  { color:#53B2C8; }
+
+            /* form starting stylings ------------------------------- */
+            .group 			  {
+                position:relative;
+                margin-bottom:45px;
+            }
+            input 				{
+                font-size:18px;
+                padding:10px 10px 10px 5px;
+                display:block;
+                width:300px;
+                border:none;
+                border-bottom:1px solid #757575;
+            }
+            input:focus 		{ outline:none; }
+
+            /* LABEL ======================================= */
+            label 				 {
+                color:#999;
+                font-size:18px;
+                font-weight:normal;
+                position:absolute;
+                pointer-events:none;
+                left:5px;
+                top:10px;
+                transition:0.2s ease all;
+                -moz-transition:0.2s ease all;
+                -webkit-transition:0.2s ease all;
+            }
+
+            /* active state */
+            input:focus ~ label, input:valid ~ label 		{
+                top:-20px;
+                font-size:14px;
+                color:#5264AE;
+            }
+
+            /* BOTTOM BARS ================================= */
+            .bar 	{ position:relative; display:block; width:300px; }
+            .bar:before, .bar:after 	{
+                content:'';
+                height:2px;
+                width:0;
+                bottom:1px;
+                position:absolute;
+                background:#5264AE;
+                transition:0.2s ease all;
+                -moz-transition:0.2s ease all;
+                -webkit-transition:0.2s ease all;
+            }
+            .bar:before {
+                left:50%;
+            }
+            .bar:after {
+                right:50%;
+            }
+
+            /* active state */
+            input:focus ~ .bar:before, input:focus ~ .bar:after {
+                width:50%;
+            }
+
+            /* HIGHLIGHTER ================================== */
+            .highlight {
+                position:absolute;
+                height:60%;
+                width:100px;
+                top:25%;
+                left:0;
+                pointer-events:none;
+                opacity:0.5;
+            }
+
+            /* active state */
+            input:focus ~ .highlight {
+                -webkit-animation:inputHighlighter 0.3s ease;
+                -moz-animation:inputHighlighter 0.3s ease;
+                animation:inputHighlighter 0.3s ease;
+            }
+
+            /* ANIMATIONS ================ */
+            @-webkit-keyframes inputHighlighter {
+                from { background:#5264AE; }
+                to 	{ width:0; background:transparent; }
+            }
+            @-moz-keyframes inputHighlighter {
+                from { background:#5264AE; }
+                to 	{ width:0; background:transparent; }
+            }
+            @keyframes inputHighlighter {
+                from { background:#5264AE; }
+                to 	{ width:0; background:transparent; }
+            }
+        </style>
         <script>
             function postMate(){
-                let title=$('#title').val();
-                let category=$('#category').val();
-                let gender=$('#gender').val();
-                let age=$('#age').val();
-                let num = $('#peopleNum').val();
-                let startDate = $('#startDate').val();
-                let dueDate=$('#dueDate').val();
-                let detail=$('#detail').val();
 
                 $.ajax({
                     type: 'POST',
@@ -51,13 +161,35 @@
             <div class="menu">
                 <h1>식단 등록 페이지</h1>
             </div>
+             <div class="setDuration">
+                 <input type="radio" name="address" value="week">일주일 식단
+                 <input type="radio" name="address" value="oneday">원데이 식단
+             </div>
+        </div>
 
-            <div>
-                <div class="setDuration">
-                    <input type="radio" name="address" value="week">일주일 식단
-                    <input type="radio" name="address" value="oneday">원데이 식단
+        <div class="container">
+            <form>
+                <div class="group">
+                    <input type="text" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>아침</label>
                 </div>
-            </div>
+
+                <div class="group">
+                    <input type="text" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>점심</label>
+                </div>
+
+                <div class="group">
+                    <input type="text" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>저녁</label>
+                </div>
+            </form>
         </div>
     </body>
 </html>

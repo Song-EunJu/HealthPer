@@ -248,17 +248,18 @@
             }
 
             function linkLike(){
-                $.ajax({
-                  type: "GET",
-                  url: "/api/linkLike",
-                  headers: {'token_give' : $.cookie('token')},
-                  // data: {'link_send': },
-                  success: function(response){
-                      if (response['result'] == 'success'){
-                          $('#like').text('좋아요 취소')
-                      }
-                  }
-                })
+                console.log($('.youtube_links link').index(this));
+                // $.ajax({
+                //   type: "GET",
+                //   url: "/api/linkLike",
+                //   headers: {'token_give' : $.cookie('token')},
+                //   // data: {'link_send': },
+                //   success: function(response){
+                //       if (response['result'] == 'success'){
+                //           $('#like').text('좋아요 취소')
+                //       }
+                //   }
+                // })
             }
 
         </script>

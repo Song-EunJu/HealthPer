@@ -115,7 +115,7 @@ def api_showLink():
 
 @app.route('/api/linkLike', methods=['POST'])
 def api_linkLike():
-    link_receive = request.form['link_send']
+    link_receive = int(request.form['link_send'])
     link = db.links.find_one({'link_title': link_receive})
     new_like = link['link_like'] + 1
 

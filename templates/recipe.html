@@ -51,29 +51,7 @@
     </style>
     <script>
 
-        let latitude;
-        let longitude;
-        function getLocation() {
-          if (navigator.geolocation) { // GPS를 지원하면
-            navigator.geolocation.getCurrentPosition(function(position) {
-              latitude=position.coords.latitude;
-              longitude=position.coords.longitude;
-            }, function(error) {
-              console.error(error);
-            }, {
-              enableHighAccuracy: false,
-              maximumAge: 0,
-              timeout: Infinity
-            });
-          } else {
-            alert('GPS를 지원하지 않습니다');
-          }
-        }
-        getLocation();
 
-        function withMate(){
-            $('.option').css("display","block");
-        }
 
         function searchMate(){
             let category = $('#category').val();
@@ -109,31 +87,6 @@
             });
         }
 
-        function getMate(){ // 전체 메이트 글 보여주기
-            $.ajax({
-                type: 'GET',
-                url: "/api/getMate",
-                data: {},
-                success: function (response) {
-                    if(response['result']=='success') {
-                        let result = response['matePosts'];
-                        // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
-
-                        for (let i=0;i<result.length;i++) {
-                            let temp=`<div class="card">
-                                  <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
-                                  <div class="desc">
-                                      <a href="" class="mate_title">${result[i]['mate_title']}</a>
-                                      <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
-                                  </div>
-                            </div>`;
-                            $('.cards').append(temp);
-                        }
-                        return;
-                    }
-                }
-            });
-        }
 
 
 
@@ -148,56 +101,12 @@
         </div>
         <a href="/postMeal">식단 등록</a>
 
-        <div class="setAddr">
-            <input type="radio" name="address" value="now">현 위치로 설정하기
-            <input type="radio" name="address" value="set">주소 설정하기
+        <div class="setDuration">
+            <input type="radio" name="address" value="week">일주일 식단
+            <input type="radio" name="address" value="oneday">원데이 식단
         </div>
 
-        <div class="category">
-            <select class="custom-select" id="category">
-                <option selected value="">원하는 운동을 선택해주세요!</option>
-                <option value="축구">축구</option>
-                <option value="러닝">러닝</option>
-                <option value="필라테스">필라테스</option>
-                <option value="배드민턴">배드민턴</option>
-                <option value="요가">요가</option>
-                <option value="족구">족구</option>
-                <option value="농구">농구</option>
-                <option value="자전거">자전거</option>
-                <option value="탁구">탁구</option>
-                <option value="테니스">테니스</option>
-            </select>
-        </div>
 
-        <div class="setMate">
-            <button class="mate" onclick="withMate()">같이 할래요!</button>
-            <button class="mate" onclick="alone()">혼자 할래요!</button>
-        </div>
-
-        <div class="option" style="display:none">
-            <div class="age">
-                나이
-                <input type="radio" name="age" value="10">10대
-                <input type="radio" name="age" value="20">20대
-                <input type="radio" name="age" value="30">30대
-                <input type="radio" name="age" value="40">40대
-                <input type="radio" name="age" value="50">50대 이상
-            </div>
-            <div class="peopleNum">
-                인원 <input type="text" id="people_num"/>
-            </div>
-            <div class="gender">
-                성별
-                <input type="radio" name="gender" value="남성">남성
-                <input type="radio" name="gender" value="여성">여성
-                <input type="radio" name="gender" value="무관">성별 무관
-            </div>
-            <button onclick="">초기화</button>
-            <button onclick="searchMate()">검색</button>
-
-        </div>
-        <div class="cards">
-        </div>
     </div>
 
 
