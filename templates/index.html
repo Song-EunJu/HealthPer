@@ -37,6 +37,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
         <title>Healthper :: 당신의 건강을 돕는 플랫폼</title>
         <style>
             * {
@@ -150,7 +151,7 @@
                 justify-content:space-around;
             }
 
-            .youtube, .diet_food, .fitness_equip {
+            .youtube, .diet_food, .equip {
                 display:flex;
                 flex-direction:column;
             }
@@ -172,14 +173,11 @@
                   headers: {'token_give' : $.cookie('token')},
                   data: {},
                   success: function(response){
-                      if (response['result'] == 'success'){
-                          $('#userInfo').css("display","block");
+                      if (response['result'] == 'success') {
+                          $('#userInfo').css("display", "block");
                           $('#nickname').text(response['nickname'])
                           $('#loginForm').css("display", "none");
                       }
-                      // else{
-                      //     window.location.href='/login'
-                      // }
                   }
                 })
             }
@@ -195,36 +193,53 @@
                         if(response['result']=='success') {
                             let youtube = response['youtube_links'];
                             let food = response['food_links'];
-                            let temp;
+                            let equip = response['equip_links'];
                             for (let i=0;i<youtube.length;i++) {
                                 if(youtube[i]['link_title'].length>=15){
                                     temp=`<div class="link">
                                             <a href=${youtube[i]['link_url']}>${youtube[i]['link_title'].substring(0,15)} ...</a>
-                                            <button id="like" onclick="linkLike()">♡</button>
+                                            <button id="like" onclick="linkLike()">${youtube[i]['link_like']}</button>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
                                             <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
-                                            <button id="like" onclick="linkLike()">♡</button>
+                                            <button id="like" onclick="linkLike()">${youtube[i]['link_like']}</button>
                                             </div>`;
                                 }
                                 $('.youtube_links').append(temp);
                             }
+
                             for (let i=0;i<food.length;i++) {
-                                if(youtube[i]['link_title'].length>=15){
+                                if(food[i]['link_title'].length>=15){
                                     temp=`<div class="link">
                                             <a href=${food[i]['link_url']}>${food[i]['link_title'].substring(0,15)} ...</a>
-                                            <button id="like" onclick="linkLike()">♡</button>
+                                            <button id="like" onclick="linkLike()">${food[i]['link_like']}</button>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
-                                            <a href=${food[i]['link_url']}>${youtube[i]['link_title']}</a>
-                                            <button id="like" onclick="linkLike()">♡</button>
+                                            <a href=${food[i]['link_url']}>${food[i]['link_title']}</a>
+                                            <button id="like" onclick="linkLike()">${food[i]['link_like']}</button>
                                             </div>`;
                                 }
                                 $('.food_links').append(temp);
+                            }
+
+                            for (let i=0;i<equip.length;i++) {
+                                if(equip[i]['link_title'].length>=15){
+                                    temp=`<div class="link">
+                                            <a href=${equip[i]['link_url']}>${equip[i]['link_title'].substring(0,15)} ...</a>
+                                            <button id="like" onclick="linkLike()">${equip[i]['link_like']}</button>
+                                            </div>`;
+                                }
+                                else{
+                                    temp=`<div class="link">
+                                            <a href=${equip[i]['link_url']}>${equip[i]['link_title']}</a>
+                                            <button id="like" onclick="linkLike()">${equip[i]['link_like']}</button>
+                                            </div>`;
+                                }
+                                $('.equip').append(temp);
                             }
                             return;
                         }
@@ -237,7 +252,7 @@
                   type: "GET",
                   url: "/api/linkLike",
                   headers: {'token_give' : $.cookie('token')},
-                  data: {},
+                  // data: {'link_send': },
                   success: function(response){
                       if (response['result'] == 'success'){
                           $('#like').text('좋아요 취소')
@@ -253,7 +268,11 @@
         <div class="wrap">
             <div class="top">
                 <div class="login">
-                    <span id="userInfo"><span id="nickname"></span>님 환영합니다</span>
+                    <span id="userInfo">
+                        <span id="nickname"></span>님 환영합니다
+                        <a href="/logout">로그아웃</a>
+                    </span>
+
                     <ul id="loginForm" style="list-style : none;">
                         <li>
                             <a href="/login">로그인</a>
@@ -370,7 +389,7 @@
 
                     </div>
                 </div>
-                <div class="fitness_equip">
+                <div class="equip">
                     <h5>운동기구 사이트</h5>
                 </div>
             </div>

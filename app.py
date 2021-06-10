@@ -1,20 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
-from oauth2client.contrib.flask_util import UserOAuth2
 
 # mongoDB
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.sw_project
-
-# oAuth
-
-# app.config['SECRET_KEY'] = 'LuffyIsLonely'
-# app.config['GOOGLE_OAUTH2_CLIENT_SECRETS_FILE'] = 'client_secret_.json'
-# app.config['GOOGLE_OAUTH2_CLIENT_ID'] = '653440379691-3bdrvt9m65scj0mgr8hort4eu9c3ghg1.apps.googleusercontent.com'
-# app.config['GOOGLE_OAUTH2_CLIENT_SECRET'] = 'rAQeN-jrkM20fyUrE9Np5O5a'
-#
-# oauth2 = UserOAuth2(app)
 
 # JWT
 SECRET_KEY = 'luffy'
@@ -30,6 +20,10 @@ def index():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+# @app.route('/logout')
+# def login():
+#     return render_template('login.html')
 
 @app.route('/register')
 def register():
@@ -49,7 +43,8 @@ def mate():
 
 @app.route('/mateDetail')
 def mateDetail():
-    return render_template('mateDetail.html')
+    id = request.args.get('id');
+    return render_template('mateDetail.html', idnum=id)
 
 @app.route('/postMate')
 def postMate():
@@ -107,34 +102,24 @@ def api_userInfo():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user = db.user.find_one({'id': payload['id']}, {'_id': 0})
         return jsonify({'result':'success','nickname': user['nick']})
-
     except jwt.ExpiredSignatureError:
-        print('hi')
         return jsonify({'result':'fail'})
 
-# @app.route('/test')
-# @oauth2.required
-# def test():
-#     if oauth2.has_credentials():
-#         print('login OK')
-#     else:
-#         print('login NO')
-#     return render_template('test.html')
 
 @app.route('/api/showLink', methods=['GET'])
 def api_showLink():
     youtube_links = list(db.links.find({'link_category':'youtube'}, {'_id': False}).sort('link_like', -1))
-    food_links = list(db.links.find({'link_category':'diet_food'}, {'_id': False}).sort('link_like', -1))
-    return jsonify({'result': 'success', 'youtube_links': youtube_links, 'food_links':food_links})
+    diet_food = list(db.links.find({'link_category':'diet_food'}, {'_id': False}).sort('link_like', -1))
+    fitness_equipment = list(db.links.find({'link_category':'fitness_equipment'}, {'_id': False}).sort('link_like', -1))
+    return jsonify({'result': 'success', 'youtube_links': youtube_links, 'food_links': diet_food, 'equip_links': fitness_equipment })
 
 @app.route('/api/linkLike', methods=['POST'])
 def api_linkLike():
     link_receive = request.form['link_send']
-
     link = db.links.find_one({'link_title': link_receive})
     new_like = link['link_like'] + 1
 
-    db.mystar.update_one({'link_title': link_receive}, {'$set': {'link_like': new_like}})
+    db.links.update_one({'link_title': link_receive}, {'$set': {'link_like': new_like}})
 
     return jsonify({'result': 'success'})
 
@@ -355,6 +340,18 @@ def api_searchMate():
 
     values = list(db.mates.find({'mate_category': category_recv, 'age': age_recv, 'people_num': {"$lte": num_recv}, 'gender': gender_recv},{'_id': 0}));
     return jsonify({'result': 'success', 'values': values})
+
+@app.route('/api/addMate', methods =['POST'])
+def api_addMate():
+    id_recv = int(request.form['id_send'])
+    value = db.mates.find_one({'matepost_id': id_recv})
+
+    if value['current_num'] == value['people_num']:
+        return jsonify({'result': 'fail'})
+    else:
+        new_value = value['current_num'] + 1
+        db.mates.update_one({'matepost_id': id_recv}, {'$set': {'current_num': new_value}})
+        return jsonify({'result': 'success'})
 
 @app.route('/api/getMate',methods=['GET'])
 def api_getMate():

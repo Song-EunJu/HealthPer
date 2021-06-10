@@ -19,8 +19,7 @@
 
 
         function searchMate(){
-
-
+            let id={{ idnum }};
             $.ajax({
                 type: 'POST',
                 url: "/api/mateDetail",
@@ -70,7 +69,7 @@
                                 <h4>설명 : ${result['mate_detail']}</h4>
                             </div>
                             <div class="join">
-                                <button onclick="addMate()" type="submit">참가하기</button>
+<!--                                <button onclick="addMate()" type="submit">참가하기</button>-->
                             </div>
                         </div>`;
 
@@ -81,11 +80,34 @@
                 }
             });
         }
+
+        function addMate(){
+            let id = {{idnum}};
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/addMate",
+                data: {
+                    'id_send':id
+                },
+                success: function (response) {
+                    if(response['result']=='success') {
+                        alert('신청 되었습니다.')
+                        window.location.href='/mate'
+                    }
+                    else{
+                        alert('이미 마감된 공고입니다.')
+                    }
+                }
+            })
+        }
+
         </script>
     </head>
     <body>
         <div class="content">
             <h1>여기다 여기</h1>
+            <button onclick="addMate()">추가</button>
         </div>
     </body>
 </html>

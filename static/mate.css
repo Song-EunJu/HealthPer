@@ -1,6 +1,22 @@
 body{
     font-family: 'Nanum Gothic', sans-serif;
 }
+
+.main {
+    margin:0 auto;
+    width:600px;
+    height:400px;
+    padding:20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 23%), 0 3px 10px rgb(0 0 0 / 16%);
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.write {
+    display:flex;
+    justify-content: flex-end;
+}
+
 .content{
     width:1100px;
     margin:0 auto;
@@ -20,15 +36,15 @@ body{
     padding:5px;
 }
 
-button{
-    margin:5px;
-    border-radius:8px;
-    padding:4px 5px;
-    background-color: white;
-	color: black;
-    border:1px solid #7B96AB;
-	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;
-}
+/*button{*/
+/*    margin:5px;*/
+/*    border-radius:8px;*/
+/*    padding:4px 5px;*/
+/*    background-color: white;*/
+/*	color: black;*/
+/*    border:1px solid #7B96AB;*/
+/*	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;*/
+/*}*/
 
 #people_num{
     width:50px;
@@ -41,25 +57,4 @@ button{
 .option>div{
     margin:20px;
 }
-    /*align-content:flex-start;*/
-    /*flex-wrap:wrap;*/
-
-/*.menu, .category{*/
-/*    text-align:center;*/
-/*}*/
-
-/*.ex_category {*/
-/*    margin:5px;*/
-/*    border-radius:8px;*/
-/*    padding:4px 5px;*/
-/*    background-color: white;*/
-/*	color: black;*/
-/*    border:1px solid #7B96AB;*/
-/*	box-shadow: rgb(255, 255, 255) 0 0px 0px 2px inset;*/
-/*}*/
-
-/*.ex_category:hover {*/
-/*    color: rgba(255, 255, 255, 0.85);*/
-/*	box-shadow: #7B96AB 0 0px 0px 40px inset;*/
-/*}*/
 
