@@ -33,6 +33,10 @@ def register():
 def test():
     return render_template('test.html')
 
+@app.route('/test2')
+def test2():
+    return render_template('test2.html')
+
 @app.route('/exercise')
 def exercise():
     return render_template('exercise.html')
@@ -415,39 +419,26 @@ def api_postMate():
 
     return jsonify({'result': 'success'})
 
-@app.route('/api/postMeal', methods=['POST'])
-def api_postMeal():
-    title_recv = request.form['title_send']
-    category_recv = request.form['category_send']
-    gender_recv = request.form['gender_send']
-    age_recv = int(request.form['age_send'])
-    num_recv = int(request.form['num_send'])
-    start_recv = request.form['start_send']
-    due_recv = request.form['due_send']
-    detail_recv = request.form['detail_send']
-    current_num = 0
+@app.route('/api/postOneday', methods=['POST'])
+def api_postOneday():
+    dietname_recv = request.form['dietname_send']
+    breakfast_recv = request.form['breakfast_send']
+    lunch_recv = request.form['lunch_send']
+    dinner_recv = request.form['dinner_send']
+    # photo_recv = request.form['photo_send']
 
-    if (db.mates.count()) == 0:
-        matepost_id = 1
-    else:
-        matepost_id = db.mates.count()+1
-
-    option = {
-        'matepost_id': matepost_id,
-        'mate_title': title_recv,
-        'mate_category': category_recv,
-        'gender': gender_recv,
-        'age': age_recv,
-        'people_num': num_recv,
-        'current_num': current_num,
-        'start_date': start_recv,
-        'due_date': due_recv,
-        # 'address': address_recv,
-        'mate_detail': detail_recv,
+    meal = {
+        'dietname': dietname_recv,
+        'breakfast': breakfast_recv,
+        'lunch': lunch_recv,
+        'dinner': dinner_recv,
+        'photo' : "https://i.pinimg.com/564x/45/ad/9e/45ad9ea38cc8d8c8c7332f7068fe1ce3.jpg"
     }
-    db.mates.insert_one(option)
+
+    db.oneday.insert_one(meal)
 
     return jsonify({'result': 'success'})
+
 
 # # @app.route('/list')
 # # def _list():
