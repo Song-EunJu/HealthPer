@@ -50,46 +50,52 @@
         }
     </style>
     <script>
+        $(document).ready(function () {
+            getOneday();
+        });
 
-
-
-        function searchMate(){
-            let category = $('#category').val();
-            let age = $('input[name="age"]:checked').val();
-            let num = $('#people_num').val();
-            let gender = $('input[name="gender"]:checked').val();
-
+        function getOneday(){ // 전체 메이트 글 보여주기
             $.ajax({
-                type: 'POST',
-                url: "/api/searchMate",
-                data: {'category_send':category, 'age_send':age, 'num_send':num, 'gender_send':gender},
+                type: 'GET',
+                url: "/api/getOneday",
+                data: {},
                 success: function (response) {
                     if(response['result']=='success') {
-                        let result = response['values'];
-                        if(result.length!=0){
-                            $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
-                            for(let i=0;i<result.length;i++){
-                                let temp=`<div class="card">
-                                      <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
-                                      <div class="desc">
-                                          <a href="" class="mate_title">${result[i]['mate_title']}</a>
-                                          <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
-                                      </div>
-                                </div>`;
-                                $('.cards').append(temp);
-                            }
-                        }
-                        else
-                            $('.cards').append(`<span style="margin:0 auto">검색 결과가 없습니다</span>`);
+                        let result = response['onedays'];
+                        // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
 
+                        for (let i = 0; i < result.length; i++) {
+                            let temp = `<div class="card">
+                                  <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
+                                  <div class="desc">
+                                      <a href="" class="oneday_title">${result[i]['dietname']}</a>
+                                  </div>
+                            </div>`;
+                            $('.cards').append(temp);
+                        }
                     }
                 }
             });
         }
 
+        var recipeCtg;
 
+        // 라디오 버튼 클릭 시 속성
+        $(document).ready(function(){
+            $(".setDuration input:radio[name='recipeCtg']").change(function () {
+                recipeCtg = $(this).val();
 
+                console.log(recipeCtg);
+                if (recipeCtg == 'week') {
+                    $('.oneday_container').css("display", "none");
+                    $('.week_container').css("display", "block");
 
+                } else {
+                    $('.week_container').css("display", "none");
+                    $('.oneday_container').css("display", "block");
+                }
+            });
+        });
     </script>
 </head>
 
@@ -106,7 +112,9 @@
             <input type="radio" name="address" value="oneday">원데이 식단
         </div>
 
+        <div class="cards">
 
+        </div>
     </div>
 
 

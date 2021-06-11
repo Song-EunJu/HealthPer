@@ -439,6 +439,10 @@ def api_postOneday():
 
     return jsonify({'result': 'success'})
 
+@app.route('/api/getOneday',methods=['GET'])
+def api_getOneday():
+    onedays = list(db.oneday.find({},{'_id': 0}));
+    return jsonify({'result': 'success', 'onedays': onedays})
 
 # # @app.route('/list')
 # # def _list():
