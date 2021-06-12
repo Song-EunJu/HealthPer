@@ -66,6 +66,19 @@ def recipe():
 def postMeal():
     return render_template('postMeal.html')
 
+@app.route('/product')
+def product():
+    return render_template('product.html')
+
+@app.route('/postProduct')
+def postProduct():
+    return render_template('postProduct.html')
+
+@app.route('/productdetail')
+def productdetail():
+    id = request.args.get('id')
+    return render_template('productdetail.html', idnum=id)
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id_give']
@@ -448,6 +461,53 @@ def api_getOneday():
     onedays = list(db.oneday.find({},{'_id': 0}));
     return jsonify({'result': 'success', 'onedays': onedays})
 
+@app.route('/api/getWeek',methods=['GET'])
+def api_getWeek():
+    week = list(db.week.find({},{'_id': 0}));
+    return jsonify({'result': 'success', 'week':week})
+
+# 제품공유
+@app.route('/api/gettag', methods=['POST'])
+def api_gettag():
+    tag_recv = request.form['tag_send']
+    if tag_recv == 'all':
+        values = list(db.products.find({}, {'_id': 0}));
+    else:
+        values = list(db.products.find({'product_tag': tag_recv}, {'_id': 0}));  # {_id : 0}은 원하지 않는 필드를 제외하는 것
+    return jsonify({'result': 'success', 'values': values})
+
+
+@app.route('/api/productDetail', methods=['POST'])
+def api_productDetail():
+    id_recv = int(request.form['id_send'])
+
+    values = db.products.find_one({'product_id': id_recv}, {'_id': 0});
+    return jsonify({'result': 'success', 'values': values})
+
+
+@app.route('/api/postProduct', methods=['POST'])
+def api_postProduct():
+    title_recv = request.form['title_send']
+    src_recv = request.form['src_send']
+    tag_recv = request.form['tag_send']
+    detail_recv = request.form['detail_send']
+    current_num = 0
+
+    if (db.products.count()) == 0:
+        product_id = 1
+    else:
+        product_id = db.products.count() + 1
+
+    option = {
+        'productpost_id': product_id,
+        'product_title': title_recv,
+        'product_img': src_recv,
+        'product_tag': tag_recv,
+        'product_detail': detail_recv,
+    }
+    db.products.insert_one(option)
+
+    return jsonify({'result': 'success'})
 
 
 if __name__ == '__main__':
