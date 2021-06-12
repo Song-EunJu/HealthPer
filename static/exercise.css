@@ -1,5 +1,4 @@
 *{
-    /*font-family: 'Nanum Gothic', sans-serif;*/
     font-weight:bold;
 }
 .content{
@@ -11,7 +10,7 @@
     text-align:center;
 }
 
-.ex_category {
+.ex_category, button {
     margin:5px;
     border-radius:8px;
     padding:4px 5px;

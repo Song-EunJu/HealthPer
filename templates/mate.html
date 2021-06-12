@@ -155,30 +155,30 @@
             });
         }
 
-        function getMate(){ // 전체 메이트 글 보여주기
-            $.ajax({
-                type: 'GET',
-                url: "/api/getMate",
-                data: {},
-                success: function (response) {
-                    if(response['result']=='success') {
-                        let result = response['matePosts'];
-                        // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
-
-                        for (let i=0;i<result.length;i++) {
-                            let temp=`<div class="card">
-                                  <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
-                                  <div class="desc">
-                                      <a href="/mateDetail?id=${result[i]['matepost_id']}" class="mate_title">${result[i]['mate_title']}</a>
-                                      <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
-                                  </div>
-                            </div>`;
-                            $('.cards').append(temp);
-                        }
-                        }
-                }
-            });
-        }
+        // function getMate(){ // 전체 메이트 글 보여주기
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "/api/getMate",
+        //         data: {},
+        //         success: function (response) {
+        //             if(response['result']=='success') {
+        //                 let result = response['matePosts'];
+        //                 // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
+        //
+        //                 for (let i=0;i<result.length;i++) {
+        //                     let temp=`<div class="card">
+        //                           <img src=${result[i]['mate_image']} class="card-img-top" alt="메이트 카테고리 사진" >
+        //                           <div class="desc">
+        //                               <a href="/mateDetail?id=${result[i]['matepost_id']}" class="mate_title">${result[i]['mate_title']}</a>
+        //                               <span class="mate_num">${result[i]['current_num']}/${result[i]['people_num']}</span>
+        //                           </div>
+        //                     </div>`;
+        //                     $('.cards').append(temp);
+        //                 }
+        //                 }
+        //         }
+        //     });
+        // }
     </script>
 </head>
 

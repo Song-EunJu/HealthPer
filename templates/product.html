@@ -47,26 +47,26 @@
                 margin: 10px auto 10px auto;
             }
 
-            .likes{
-                display:flex;
-                align-items:center;
-                width:35px;
-                height:35px;
-                text-align:center;
-                line-height:45px;
-            }
-            .like{
-                font-size: 20px;
-                border-radius: 50%;
-                border:1px solid white;
-                margin-left:200px;
-            }
-            .like:hover{
-                color:red;
-            }
-            .like_num{
-                padding-left:3px;
-            }
+            /*.likes{*/
+            /*    display:flex;*/
+            /*    align-items:center;*/
+            /*    width:35px;*/
+            /*    height:35px;*/
+            /*    text-align:center;*/
+            /*    line-height:45px;*/
+            /*}*/
+            /*.like{*/
+            /*    font-size: 20px;*/
+            /*    border-radius: 50%;*/
+            /*    border:1px solid white;*/
+            /*    margin-left:200px;*/
+            /*}*/
+            /*.like:hover{*/
+            /*    color:red;*/
+            /*}*/
+            /*.like_num{*/
+            /*    padding-left:3px;*/
+            /*}*/
 
         </style>
         <script>
@@ -88,12 +88,12 @@
                                 let temp=`<div class="card">
                                   <img src=${result[i]['product_img']} class="card-img-top" alt="...">
                                   <div class="card-body">
-                                      <a href="./productdetail?id=${result[i]['productpost_id']}" class="product_title">${result[i]['product_title']}</a>
+                                      <a href="./productDetail?id=${result[i]['productpost_id']}" class="product_title">${result[i]['product_title']}</a>
                                   </div>
-                                  <div class="likes">
-                                        <button class="like">♡</button>
-                                        <a class="like_num">43</a>
-                                      </div>
+<!--                                  <div class="likes">-->
+<!--                                        <button class="like">♡</button>-->
+<!--                                        <a class="like_num">43</a>-->
+<!--                                      </div>-->
                                 `;
                                 $('.cards').append(temp);
                             }
@@ -127,8 +127,8 @@
                     <div>
                         <div class="category" >
                             <button class="pr_tag" onclick="gettag('all')">전체보기</button>
-                            <button class="pr_tag" onclick="gettag('health')">#헬스용품</button>
-                            <button class="pr_tag" onclick="gettag('food')">#건강식품</button>
+                            <button class="pr_tag" onclick="gettag('헬스용품')">#헬스용품</button>
+                            <button class="pr_tag" onclick="gettag('건강식품')">#건강식품</button>
                         </div>
                         <div class="cards">
                         </div>

@@ -24,6 +24,32 @@
         <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
         <script>
+           // <div class="option2">
+           //          <div class="tag" role="group" aria-label="Basic checkbox toggle button group">
+           //              <h4>태그</h4>
+           //              <input type="radio" class="btn-check" name="tag" value="헬스용품" id="option1" autocomplete="off" >
+           //              <label class="btn btn-secondary" for="option1">#헬스용품</label>
+           //
+           //              <input type="radio" class="btn-check" name="tag" value="건강식품" id="option2" autocomplete="off" >
+           //              <label class="btn btn-secondary" for="option2">#건강식품</label>
+           //          </div>
+           //      </div>
+
+            var tag;
+
+            // $(document).ready(function () {
+            //     $(".option2 .tag input:radio[name='tag']").change(function () {
+            //         tag = $(this).val();
+            //
+            //         if (tag == '건강식품') {
+            //             $('.cards').empty();
+            //             getWeek();
+            //         } else if(tag == '헬스용품'){
+            //             $('.cards').empty();
+            //             getOneday();
+            //         }
+            //     });
+            // });
 
             function showImage() {
                 var newImage = document.getElementById('image-show').lastElementChild;
@@ -62,8 +88,9 @@
                 let tag=$('input[name="tag"]:checked').val();
 
                 let detail=$('#detail').val();
-                let src=URL.createObjectURL(realfile);
 
+                let src=URL.createObjectURL(realfile);
+                console.log(title, tag, detail, src);
                 $.ajax({
                     type: 'POST',
                     url: "/api/postProduct",
@@ -95,7 +122,7 @@
                         <h4>제목</h4>
                         <input type="text" id="title">
                     </div>
-
+                    <br>
                     <div class="category">
                         <h4>사진</h4>
                         <div class="container">
@@ -135,12 +162,11 @@
                         <input type="radio" class="btn-check" name="tag" value="건강식품" id="option2" autocomplete="off" >
                         <label class="btn btn-secondary" for="option2">#건강식품</label>
                     </div>
-
                 </div>
 
                 <div class="detail">
                     <h4>설명</h4>
-                    <textarea placeholder="모집글에 대한 설명을 입력해주세요" rows="5" id="detail"></textarea>
+                    <textarea placeholder="제품에 대한 설명을 입력해주세요" rows="5" id="detail"></textarea>
                 </div>
                 <div class="add">
                     <button onclick="postProduct()" type="submit">글 등록</button>
