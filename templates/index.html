@@ -42,8 +42,6 @@
         <style>
             * {
                 box-sizing: border-box;
-                /*font-family: 'Nanum Gothic', sans-serif;*/
-                /*font-family: 'Nanum Myeongjo', serif;*/
                 color:black;
             }
 
@@ -57,7 +55,7 @@
             }
 
             a:hover {
-                color: blue;
+                font-weight:bold;
                 text-decoration: underline;
             }
 
@@ -197,14 +195,14 @@
                             for (let i=0;i<youtube.length;i++) {
                                 if(youtube[i]['link_title'].length>=15){
                                     temp=`<div class="link">
-                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title'].substring(0,15)} ...</a>
                                             <button id="like" onclick="linkLike()">${youtube[i]['link_like']}</button>
+                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title'].substring(0,15)} ...</a>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
-                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
                                             <button id="like" onclick="linkLike()">${youtube[i]['link_like']}</button>
+                                            <a href=${youtube[i]['link_url']}>${youtube[i]['link_title']}</a>
                                             </div>`;
                                 }
                                 $('.youtube_links').append(temp);
@@ -213,14 +211,14 @@
                             for (let i=0;i<food.length;i++) {
                                 if(food[i]['link_title'].length>=15){
                                     temp=`<div class="link">
-                                            <a href=${food[i]['link_url']}>${food[i]['link_title'].substring(0,15)} ...</a>
                                             <button id="like" onclick="linkLike()">${food[i]['link_like']}</button>
+                                            <a href=${food[i]['link_url']}>${food[i]['link_title'].substring(0,15)} ...</a>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
-                                            <a href=${food[i]['link_url']}>${food[i]['link_title']}</a>
                                             <button id="like" onclick="linkLike()">${food[i]['link_like']}</button>
+                                            <a href=${food[i]['link_url']}>${food[i]['link_title']}</a>
                                             </div>`;
                                 }
                                 $('.food_links').append(temp);
@@ -229,14 +227,14 @@
                             for (let i=0;i<equip.length;i++) {
                                 if(equip[i]['link_title'].length>=15){
                                     temp=`<div class="link">
-                                            <a href=${equip[i]['link_url']}>${equip[i]['link_title'].substring(0,15)} ...</a>
                                             <button id="like" onclick="linkLike()">${equip[i]['link_like']}</button>
+                                            <a href=${equip[i]['link_url']}>${equip[i]['link_title'].substring(0,15)} ...</a>
                                             </div>`;
                                 }
                                 else{
                                     temp=`<div class="link">
-                                            <a href=${equip[i]['link_url']}>${equip[i]['link_title']}</a>
                                             <button id="like" onclick="linkLike()">${equip[i]['link_like']}</button>
+                                            <a href=${equip[i]['link_url']}>${equip[i]['link_title']}</a>
                                             </div>`;
                                 }
                                 $('.equip').append(temp);
@@ -276,10 +274,10 @@
 
                     <ul id="loginForm" style="list-style : none;">
                         <li>
-                            <a href="/login">로그인</a>
+                            <a href="/login" style="text-decoration:none;">로그인</a>
                         </li>
                         <li>
-                            <a href="/register">회원가입</a>
+                            <a href="/register" style="text-decoration:none;">회원가입</a>
                         </li>
                     </ul>
                 </div>
@@ -297,18 +295,18 @@
                     </div>
                 </div>
 
-                <ul class="menu" style="list-style : none;">
+                <ul class="menu" >
                     <li>
-                        <a href="/exercise">운동검색</a>
+                        <a href="/exercise" style="text-decoration:none;">운동검색</a>
                     </li>
                     <li>
-                        <a href="/mate">운동 메이트 찾기</a>
+                        <a href="/mate" style="text-decoration:none;">운동 메이트 찾기</a>
                     </li>
                     <li>
-                        <a href="/recipe">식단 찾기</a>
+                        <a href="/recipe" style="text-decoration:none;">식단 찾기</a>
                     </li>
                     <li>
-                        <a href="">제품 소개</a>
+                        <a href="" style="text-decoration:none;">제품 소개</a>
                     </li>
                 </ul>
                 <div class="empty">
@@ -394,6 +392,271 @@
                     <h5>운동기구 사이트</h5>
                 </div>
             </div>
+
+            
+
+            <div class="w4-table-div">
+                <table class="w4-data-table">
+                    <thead class="w4-data-table">
+                    <tr class="w4-data-table-column-row">
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Rank</span>
+                        </th>
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Movie Title (click to view)</span>
+                        </th>
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Studio</span>
+                        </th>
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Total Gross / Theaters</span>
+                        </th>
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Opening / Theaters</span>
+                        </th>
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Open</span>
+                        </th>
+                        <th class="w4-data-table-column">
+                            <span class="w4-data-table-heading">Closed</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class "w4-data-table">
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">1</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Black Panther</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">BV</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$699,956,432 / 4,084</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$202,003,951 /	4,020</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">02/16</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">2</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Avengers: Infinity War</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">BV</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$677,759,383	/ 4,474</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$257,698,183 /	4,474</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">04/27</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">3</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Incredibles 2</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">BV</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$577,021,570 / 4,410</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$182,687,905	/ 4,410</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">06/15</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">4</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Jurassic World: Fallen Kingdom</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Uni.</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">	$400,789,005 / 4,485</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$148,024,610	/ 4,475</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">06/22</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">5</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Deadpool 2</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Fox</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$317,806,071 / 4,349</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$125,507,153 / 4,349</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">05/18</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">6</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Solo: A Star Wars Story</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">BV</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$212,811,203	/ 4,381</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$84,420,489 / 4,381</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">05/25</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">7</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Ant-Man and the Wasp</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">BV</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$188,053,779 /	4,206</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$75,812,205 / 4,206</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">07/06</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">8</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">A Quiet Place</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Par.</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$188,002,444	/ 3,808</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$50,203,562 / 3,508</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">04/06</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">9</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Ocean's 8</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">WB</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$137,656,590 /	4,145</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$41,607,378 / 4,145</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">06/08</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">-</span>
+                        </td>
+                    </tr>
+                    <tr class="w4-data-table-row">
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">10</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">Ready Player One</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">WB</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$137,018,455	/ 4,234</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">$41,764,050 / 4,234</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">03/29</span>
+                        </td>
+                        <td class="w4-data-table-cell">
+                            <span class="w4-data-table-cell-content-wrapper">07/05</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
         </div>
     </body>

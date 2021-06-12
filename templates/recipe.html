@@ -32,27 +32,32 @@
             transition: all 0.3s cubic-bezier(.25,.8,.25,1);
         }
 
-        .mate_title{
-            float:left;
-            padding-left:8px;
-        }
-
-        .mate_num{
-            float:right;
-            padding-right:8px;
-        }
-
         .card img{
             width:170px;
             height:161px;
             text-align:center;
             margin: 10px auto 0 auto;
         }
+
+
     </style>
     <script>
+        var recipeCtg;
+
         $(document).ready(function () {
             getOneday();
+            $(".setDuration input:radio[name='recipeCtg']").change(function () {
+                recipeCtg = $(this).val();
+
+                if (recipeCtg == 'week') {
+                    $('.oneday_container').css("display", "block");
+
+                } else {
+                    $('.oneday_container').css("display", "block");
+                }
+            });
         });
+
 
         function getOneday(){ // 전체 메이트 글 보여주기
             $.ajax({
@@ -64,14 +69,28 @@
                         let result = response['onedays'];
                         // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
 
-                        for (let i = 0; i < result.length; i++) {
-                            let temp = `<div class="card">
-                                  <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
-                                  <div class="desc">
-                                      <a href="" class="oneday_title">${result[i]['dietname']}</a>
-                                  </div>
-                            </div>`;
-                            $('.cards').append(temp);
+                        for (let i = 0; i < 7; i++) {
+                            // let temp = `<div class="card">
+                            //       <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
+                            //       <div class="desc">
+                            //           <a href="" class="oneday_title">${result[i]['dietname']}</a>
+                            //       </div>
+                            // </div>`;
+                            // $('.cards').append(temp);
+                            let temp = `<li>
+                                <div class="top">
+                                    <h1>STARTER</h1>
+                                    <div class="circle">$19</div>
+                                </div>
+                                <div class="bottom">
+                                    <p><span>5</span> users</p>
+                                    <p><span>10</span> projects</p>
+                                    <p><span>10GB</span> amount of space</p>
+                                    <p><span>5</span> e-mail accounts</p>
+                                </div>
+                            </li>`;
+                            $('.oneday').append(temp);
+
                         }
                     }
                 }
@@ -96,6 +115,13 @@
                 }
             });
         });
+
+        var myModal = document.getElementById('myModal')
+        var myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', function () {
+          myInput.focus()
+        })
     </script>
 </head>
 
@@ -115,7 +141,9 @@
         <div class="cards">
 
         </div>
+
     </div>
+
 
 
 </body>

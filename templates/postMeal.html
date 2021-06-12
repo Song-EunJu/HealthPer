@@ -22,9 +22,11 @@
 
                     console.log(recipeCtg);
                     if (recipeCtg == 'week') {
-                        $('.oneday_container').css("display", "block");
+                        $('.oneday_container').css("display", "none");
+                        $('.week_container').css("display", "block");
 
                     } else {
+                        $('.week_container').css("display", "none");
                         $('.oneday_container').css("display", "block");
                     }
                 });
@@ -114,6 +116,41 @@
                 <input type="hidden" id="real_path" name="real_path" value=""/>
             </form>
             <button onclick="postOneday()">등록</button>
+        </div>
+
+        <div class="week_container" style="display:none;">
+            <form id="week">
+                <div class="group">
+                    <input type="text" class="input_id" id="week_diet" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>다이어트 이름</label>
+                </div>
+
+                {% for i in range(7) %}
+                <div class="group">
+                    <input type="text" class="input_id" id="first_breakfast"required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>{{i+1}}일차 아침</label>
+                </div>
+
+                <div class="group">
+                    <input type="text" class="input_id" id="first_lunch"required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>{{i+1}}일차 점심</label>
+                </div>
+
+                <div class="group">
+                    <input type="text" class="input_id" id="first_dinner"required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>{{i+1}}일차 저녁</label>
+                </div>
+                {% endfor %}
+            </form>
+            <button onclick="postWeek()">등록</button>
 
         </div>
     </body>
