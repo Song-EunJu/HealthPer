@@ -36,13 +36,10 @@
                 obj.select();
 
                 document.body.createRange().text.toString(); //이게 실행이 안된다면....
-
                 // document.selection.createRangeCollection()[0].text.toString(); //이걸로....
                 document.upimage.real_path.value = document.selection.createRangeCollection()[0].text.toString();
 
             }
-
-
 
             function postOneday(){
                 let dietname = $('#diet').val();
@@ -73,85 +70,88 @@
     <body>
         <div class="content">
             <div class="menu">
-                <h1>식단 등록 페이지</h1>
+                <h1>식단 등록</h1>
             </div>
         </div>
 
-        <div class="setDuration">
-            <input type="radio" name="recipeCtg" value="week">일주일 식단
-            <input type="radio" name="recipeCtg" value="oneday">원데이 식단
-        </div>
+        <div class="option">
+            <div class="setDuration">
+                <input type="radio" name="recipeCtg" value="week">일주일 식단
+                <input type="radio" name="recipeCtg" value="oneday">원데이 식단
+            </div>
 
-        <div class="oneday_container" style="display:none;">
-            <form id="oneday">
-                <div class="group">
-                    <input type="text" class="input_id" id="diet" required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>다이어트 이름</label>
-                </div>
+            <div class="oneday_container" style="display:none;">
+                <form id="oneday">
+                    <div class="group">
+                        <input type="text" class="input_id" id="diet" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>다이어트 이름</label>
+                    </div>
 
-                <div class="group">
-                    <input type="text" class="input_id" id="breakfast"required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>아침</label>
-                </div>
+                    <div class="group">
+                        <input type="text" class="input_id" id="breakfast"required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>아침</label>
+                    </div>
 
-                <div class="group">
-                    <input type="text" class="input_id" id="lunch"required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>점심</label>
-                </div>
+                    <div class="group">
+                        <input type="text" class="input_id" id="lunch"required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>점심</label>
+                    </div>
 
-                <div class="group">
-                    <input type="text" class="input_id" id="dinner"required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>저녁</label>
-                </div>
+                    <div class="group">
+                        <input type="text" class="input_id" id="dinner"required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>저녁</label>
+                    </div>
 
-                <input type="file" id="uploadInput" name="uploadInput" onchange="javascript:getRealPath(this);">
-                <input type="hidden" id="real_path" name="real_path" value=""/>
-            </form>
-            <button onclick="postOneday()">등록</button>
-        </div>
+                    <input type="file" id="uploadInput" name="uploadInput" onchange="javascript:getRealPath(this);">
+                    <input type="hidden" id="real_path" name="real_path" value=""/>
+                </form>
+                <br>
+                <button onclick="postOneday()">등록</button>
+            </div>
 
-        <div class="week_container" style="display:none;">
-            <form id="week">
-                <div class="group">
-                    <input type="text" class="input_id" id="week_diet" required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>다이어트 이름</label>
-                </div>
+            <div class="week_container" style="display:none;">
+                <form id="week">
+                    <div class="group">
+                        <input type="text" class="input_id" id="week_diet" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>다이어트 이름</label>
+                    </div>
 
-                {% for i in range(7) %}
-                <div class="group">
-                    <input type="text" class="input_id" id="first_breakfast"required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>{{i+1}}일차 아침</label>
-                </div>
+                    {% for i in range(7) %}
+                    <div class="group">
+                        <input type="text" class="input_id" id="first_breakfast"required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>{{i+1}}일차 아침</label>
+                    </div>
 
-                <div class="group">
-                    <input type="text" class="input_id" id="first_lunch"required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>{{i+1}}일차 점심</label>
-                </div>
+                    <div class="group">
+                        <input type="text" class="input_id" id="first_lunch"required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>{{i+1}}일차 점심</label>
+                    </div>
 
-                <div class="group">
-                    <input type="text" class="input_id" id="first_dinner"required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>{{i+1}}일차 저녁</label>
-                </div>
-                {% endfor %}
-            </form>
-            <button onclick="postWeek()">등록</button>
+                    <div class="group">
+                        <input type="text" class="input_id" id="first_dinner"required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>{{i+1}}일차 저녁</label>
+                    </div>
+                    {% endfor %}
+                </form>
+                <button onclick="postWeek()">등록</button>
 
+            </div>
         </div>
     </body>
 </html>

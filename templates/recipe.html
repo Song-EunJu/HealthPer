@@ -45,19 +45,41 @@
         var recipeCtg;
 
         $(document).ready(function () {
-            getOneday();
             $(".setDuration input:radio[name='recipeCtg']").change(function () {
                 recipeCtg = $(this).val();
-
+                console.log(recipeCtg);
                 if (recipeCtg == 'week') {
-                    $('.oneday_container').css("display", "block");
-
+                    $('.cards').empty();
+                    getWeek();
                 } else {
-                    $('.oneday_container').css("display", "block");
+                    $('.cards').empty();
+                    getOneday();
                 }
             });
         });
 
+        function getWeek(){ // 전체 메이트 글 보여주기
+            $.ajax({
+                type: 'GET',
+                url: "/api/getWeek",
+                data: {},
+                success: function (response) {
+                    if(response['result']=='success') {
+                        let result = response['week'];
+
+                        for (let i = 0; i < result.length; i++) {
+                            let temp = `<div class="card">
+                                  <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
+                                  <div class="desc">
+                                      <a href="" class="oneday_title">${result[i]['dietname']}</a>
+                                  </div>
+                            </div>`;
+                            $('.cards').append(temp);
+                        }
+                    }
+                }
+            });
+        }
 
         function getOneday(){ // 전체 메이트 글 보여주기
             $.ajax({
@@ -67,84 +89,51 @@
                 success: function (response) {
                     if(response['result']=='success') {
                         let result = response['onedays'];
-                        // $('.card').remove(); // 각 카테고리 눌렀을 때 그것만 보이도록 기존의 전체 카테고리 내용 삭제
 
-                        for (let i = 0; i < 7; i++) {
-                            // let temp = `<div class="card">
-                            //       <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
-                            //       <div class="desc">
-                            //           <a href="" class="oneday_title">${result[i]['dietname']}</a>
-                            //       </div>
-                            // </div>`;
-                            // $('.cards').append(temp);
-                            let temp = `<li>
-                                <div class="top">
-                                    <h1>STARTER</h1>
-                                    <div class="circle">$19</div>
-                                </div>
-                                <div class="bottom">
-                                    <p><span>5</span> users</p>
-                                    <p><span>10</span> projects</p>
-                                    <p><span>10GB</span> amount of space</p>
-                                    <p><span>5</span> e-mail accounts</p>
-                                </div>
-                            </li>`;
-                            $('.oneday').append(temp);
-
+                        for (let i = 0; i < result.length; i++) {
+                            let temp = `<div class="card">
+                                  <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
+                                  <div class="desc">
+                                      <a href="" class="oneday_title">${result[i]['dietname']}</a>
+                                  </div>
+                            </div>`;
+                            $('.cards').append(temp);
                         }
                     }
                 }
             });
         }
 
-        var recipeCtg;
 
-        // 라디오 버튼 클릭 시 속성
-        $(document).ready(function(){
-            $(".setDuration input:radio[name='recipeCtg']").change(function () {
-                recipeCtg = $(this).val();
 
-                console.log(recipeCtg);
-                if (recipeCtg == 'week') {
-                    $('.oneday_container').css("display", "none");
-                    $('.week_container').css("display", "block");
-
-                } else {
-                    $('.week_container').css("display", "none");
-                    $('.oneday_container').css("display", "block");
-                }
-            });
-        });
-
-        var myModal = document.getElementById('myModal')
-        var myInput = document.getElementById('myInput')
-
-        myModal.addEventListener('shown.bs.modal', function () {
-          myInput.focus()
-        })
     </script>
 </head>
 
 <body>
-
+    <header>
+        <div class="logo">
+            <a href="/"><img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;"></a>
+        </div>
+    </header>
     <div class="content">
         <div class="menu">
             <h1>레시피 및 식단 공유</h1>
         </div>
-        <a href="/postMeal">식단 등록</a>
 
-        <div class="setDuration">
-            <input type="radio" name="address" value="week">일주일 식단
-            <input type="radio" name="address" value="oneday">원데이 식단
+        <div class="main">
+             <button class="write">
+                 <a href="/postMeal" style="text-decoration:none">식단 등록</a>
+             </button>
+
+            <div class="setDuration">
+                <input type="radio" name="recipeCtg" value="week">일주일 식단
+                <input type="radio" name="recipeCtg" value="oneday">원데이 식단
+            </div>
         </div>
-
-        <div class="cards">
-
-        </div>
-
     </div>
 
+     <div class="cards">
 
-
+     </div>
 </body>
 </html>

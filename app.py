@@ -448,16 +448,7 @@ def api_getOneday():
     onedays = list(db.oneday.find({},{'_id': 0}));
     return jsonify({'result': 'success', 'onedays': onedays})
 
-# # @app.route('/list')
-# # def _list():
-# #     # --------------------------------- [edit] ---------------------------------- #
-# #     page = request.args.get('page', type=int, default=1)  # 페이지
-# #     # --------------------------------------------------------------------------- #
-# #     question_list = Question.query.order_by(Question.create_date.desc())
-# #     # --------------------------------- [edit] ---------------------------------- #
-# #     question_list = question_list.paginate(page, per_page=10)
-# #     # --------------------------------------------------------------------------- #
-# #     return render_template('exercise/question_list.html', question_list=question_list)
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
