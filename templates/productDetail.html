@@ -27,29 +27,39 @@
                     success: function (response) {
                         if(response['result']=='success') {
                             let result = response['values'];
-                            let temp = `<div class="menu">
-                                <h1>${result['product_title']}</h1>
-                            </div>
+                            let temp = `
+                                            <div class="menu">
+                                    <h1>${result['product_title']}</h1>
+                                </div>
 
-                            <div class="option">
-                                <div class="option1">
+                                <div class="option">
+                                    <div class="option1">
 
-                                    <div class="category">
-                                        <h4>#${result['product_tag']}</h4>
+                                        <div class="category">
+                                            <h4>#${result['product_tag']}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="detail">
+                                        <h4>설명 : ${result['product_detail']}</h4>
+                                    </div>
+                                    <div class="join">
+                                         <button onclick="history.go(-1)">목록으로 돌아가기</button>
                                     </div>
                                 </div>
-                                <div class="detail">
-                                    <h4>설명 : ${result['product_detail']}</h4>
-                                </div>
-                                <div class="join">
-                                     <button onclick="history.go(-1)">목록으로 돌아가기</button>
-                                </div>
-                            </div>`;
+
+                            `;
                             $('.content').append(temp);
                         }//if success
                     }
                 });
             }
+
+
+
+
+
+
+
         </script>
     </head>
     <body>

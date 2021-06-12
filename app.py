@@ -74,10 +74,10 @@ def product():
 def postProduct():
     return render_template('postProduct.html')
 
-@app.route('/productdetail')
-def productdetail():
+@app.route('/productDetail')
+def productDetail():
     id = request.args.get('id')
-    return render_template('productdetail.html', idnum=id)
+    return render_template('productDetail.html', idnum=id)
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
@@ -481,7 +481,7 @@ def api_gettag():
 def api_productDetail():
     id_recv = int(request.form['id_send'])
 
-    values = db.products.find_one({'product_id': id_recv}, {'_id': 0});
+    values = db.products.find_one({'productpost_id': id_recv}, {'_id': 0});
     return jsonify({'result': 'success', 'values': values})
 
 

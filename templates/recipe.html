@@ -49,10 +49,8 @@
                 recipeCtg = $(this).val();
                 console.log(recipeCtg);
                 if (recipeCtg == 'week') {
-                    $('.cards').empty();
                     getWeek();
                 } else {
-                    $('.cards').empty();
                     getOneday();
                 }
             });
@@ -66,6 +64,7 @@
                 success: function (response) {
                     if(response['result']=='success') {
                         let result = response['week'];
+                        $('.card').empty();
 
                         for (let i = 0; i < result.length; i++) {
                             let temp = `<div class="card">
@@ -89,6 +88,7 @@
                 success: function (response) {
                     if(response['result']=='success') {
                         let result = response['onedays'];
+                        $('.card').empty();
 
                         for (let i = 0; i < result.length; i++) {
                             let temp = `<div class="card">
