@@ -14,33 +14,16 @@ body {
 	padding: 0;
 }
 
-.w4-nav {
-	background-color: #36383f;
-	color: #ffffff;
-	height: 64px;
-	display: flex;
-	box-sizing: border-box;
-	padding: 0 16px;
-	width: 100%;
-	flex-direction: row;
-	align-items: center;
-	white-space: nowrap;
-	font: 400 20px/32px Roboto, Helvetica Neue, sans-serif;
-	margin: 0;
-	-webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
-		0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-	box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-		0 1px 3px 0 rgba(0, 0, 0, 0.12);
-	z-index: 1;
-}
-
-h1.w4-title {
-	font: inherit;
+.link_table {
+	text-align:center;
 }
 
 div.w4-table-div {
+	display : inline-block;
+	width:60%;
+	text-align:center;
 	border-width: 1px;
-	    min-width: 250px;
+	min-width: 250px;
 	margin: 0px 10px 10px 10px;
 	border-color: #e0e0e0;
 	border-style: solid;
@@ -52,25 +35,26 @@ div.w4-table-div {
 }
 
 table.w4-data-table {
-	width: 100%;
-	    min-width: 250px;
+	margin: 0 auto;
+	min-width: 250px;
 	position: relative;
 	border-spacing: 0;
 	overflow: hidden;
 	border-collapse: collapse;
+
 	border-color: grey;
 	font: 600 14px Roboto, Helvetica Neue, sans-serif;
 }
 
 thead.w4-data-table {
 	display: table-header-group;
-	    min-width: 250px;
+	min-width: 250px;
 	vertical-align: middle;
 	border-color: inherit;
 }
 
 tr.w4-data-table-column-row {
-	    min-width: 250px;
+	min-width: 250px;
 	border-bottom-color: rgba(0, 0, 0, 0.12);
 	height: 56px;
 	border-bottom-style: solid;
@@ -94,14 +78,14 @@ th > span.w4-data-table-heading {
 }
 
 tbody.w4-data-table {
-	    min-width: 250px;
+	min-width: 250px;
 	display: table-header-group;
 	vertical-align: middle;
 	border-color: inherit;
 }
 
 tr.w4-data-table-row {
-	    min-width: 250px;
+	min-width: 250px;
 	border-bottom-color: rgba(0, 0, 0, 0.12);
 	height: 48px;
 	border-bottom-style: solid;
