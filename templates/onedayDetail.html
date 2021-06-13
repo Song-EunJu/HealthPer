@@ -2,9 +2,63 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>레시피 상세페이지</title>
+
+        <link href="../static/onedayDetail.css" rel="stylesheet" type="text/css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
     </head>
+    <script>
+        $(document).ready(function(){
+            onedayDetail();
+        });
+
+        function onedayDetail(){
+            let id = {{idnum}};
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/onedayDetail",
+                data: {'id_send': id},
+                success: function (response) {
+                    if(response['result']=='success') {
+                        let result = response['values'];
+                        let temp = `
+                            <div class="menu">
+                                <h1>${result['dietname']}</h1>
+                            </div>
+
+                            <div class="option">
+                                <div class="detail">
+                                 <img src="${result['photo']}"/>
+                                 </div>
+                                 <div class="oneday_recipe">
+                                    <span>아침 : ${result['breakfast']}</span>
+                                    <br><br>
+                                    <span>점심 : ${result['lunch']}</span>
+                                    <br><br>
+                                    <span>저녁 : ${result['dinner']}</span>
+                                  </div>
+                              </div>
+                            </div>
+                        `;
+                        $('.content').append(temp);
+                    }
+                }
+            });
+        }
+    </script>
     <body>
-        
+        <header>
+            <div class="logo">
+                <a href="/"><img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;"></a>
+            </div>
+        </header>
+        <div class="content">
+        </div>
     </body>
 </html>

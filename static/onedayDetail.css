@@ -1,0 +1,43 @@
+*{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size:15px;
+}
+body{
+    background-color: #f0f1f4;
+}
+
+.menu{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.menu h1{
+    font-size:30px;
+}
+
+.content{
+    width:640px;
+    height:700px;
+    margin: 0 auto;
+    font-size:20px;
+}
+
+.option{
+    width:600px;
+    height:700px;
+    padding:20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 23%), 0 3px 10px rgb(0 0 0 / 16%);
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+span{
+        font-size:20px;
+
+}
+
+.map, .detail{
+    display:flex;
+    flex-direction: column;
+}
+

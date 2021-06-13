@@ -92,6 +92,11 @@
         </script>
     </head>
     <body>
+        <header>
+            <div class="logo">
+                <a href="/"><img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;"></a>
+            </div>
+        </header>
         <div class="content">
             <div class="menu">
                 <h1>식단 등록</h1>
@@ -134,8 +139,8 @@
                         <label>저녁</label>
                     </div>
 
-                    <input type="file" id="uploadInput" name="uploadInput" onchange="javascript:getRealPath(this);">
-                    <input type="hidden" id="real_path" name="real_path" value=""/>
+<!--                    <input type="file" id="uploadInput" name="uploadInput" onchange="javascript:getRealPath(this);">-->
+<!--                    <input type="hidden" id="real_path" name="real_path" value=""/>-->
                 </form>
                 <br>
                 <button onclick="postOneday()">등록</button>

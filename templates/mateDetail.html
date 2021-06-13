@@ -27,54 +27,53 @@
                         if(response['result']=='success') {
                             let result = response['values'];
                             let temp = `
-                        <div class="menu">
-                <h1>${result['mate_title']}</h1>
-            </div>
+                                        <div class="menu">
+                                <h1>${result['mate_title']}</h1>
+                            </div>
 
-            <div class="option">
-                <div class="option1">
+                            <div class="option">
+                                <div class="option1">
 
-                    <div class="category">
-                        <h4>${result['mate_category']}</h4>
-                    </div>
-                </div>
+                                    <div class="category">
+                                        <h4>${result['mate_category']}</h4>
+                                    </div>
+                                </div>
 
-                <div class="option2">
-                    <div class="gender">
-                        <h4>모집 성별 :  ${result['gender']}</h4>
-                    </div>
-                    <div class="age">
-                        <h4>나이 : ${result['age']}대</h4>
-                    </div>
+                                <div class="option2">
+                                    <div class="gender">
+                                        <h4>모집 성별 :  ${result['gender']}</h4>
+                                    </div>
+                                    <div class="age">
+                                        <h4>나이 : ${result['age']}대</h4>
+                                    </div>
 
-                    <div class="peopleNum">
-                        <h4>인원 : ${result['people_num']}</h4>
-                    </div>
-                </div>
+                                    <div class="peopleNum">
+                                        <h4>인원 : ${result['people_num']}</h4>
+                                    </div>
+                                </div>
 
-                <div class="option3">
-                    <div class="startDate">
-                        <h4>시작 날짜 : ${result['start_date']}</h4>
-                    </div>
-                    <div class="dueDate">
-                        <h4>마감 날짜 : ${result['due_date']}</h4>
-                    </div>
-                </div>
+                                <div class="option3">
+                                    <div class="startDate">
+                                        <h4>시작 날짜 : ${result['start_date']}</h4>
+                                    </div>
+                                    <div class="dueDate">
+                                        <h4>마감 날짜 : ${result['due_date']}</h4>
+                                    </div>
+                                </div>
 
 
 
-                <div class="detail">
-                    <h4>설명 : ${result['mate_detail']}</h5>
-                </div>
-                <div class="join">
-                    <button onclick="addMate()" type="submit">참가하기</button>
-                     <button onclick="history.go(-1)">목록으로 돌아가기</button>
-                </div>
-            </div>
-
-        `
+                                <div class="detail">
+                                    <h4>설명 : ${result['mate_detail']}</h5>
+                                </div>
+                                <div class="join">
+                                    <button onclick="addMate()" type="submit">참가하기</button>
+                                     <button onclick="history.go(-1)">목록으로 돌아가기</button>
+                                </div>
+                            </div>
+                            `
                             $('.content').append(temp);
-                        }//if success
+                        }
                     }
                 });
             }
@@ -101,7 +100,11 @@
         </script>
     </head>
     <body>
-
+        <header>
+            <div class="logo">
+                <a href="/"><img src="./static/logo.png" style="width:90px;height:70px;padding-bottom:5px;"></a>
+            </div>
+        </header>
 
         <div class="content">
         </div>

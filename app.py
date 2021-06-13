@@ -66,6 +66,11 @@ def recipe():
 def postMeal():
     return render_template('postMeal.html')
 
+@app.route('/onedayDetail')
+def onedayDetail():
+    id = request.args.get('id')
+    return render_template('onedayDetail.html', idnum=id)
+
 @app.route('/product')
 def product():
     return render_template('product.html')
@@ -125,7 +130,6 @@ def api_userInfo():
         return jsonify({'result':'success','nickname': user['nick']})
     except jwt.ExpiredSignatureError:
         return jsonify({'result':'fail'})
-
 
 @app.route('/api/showLink', methods=['GET'])
 def api_showLink():
@@ -335,23 +339,6 @@ def api_addLink():
     #     num += 1
     return jsonify({'result': 'success'})
 
-# @app.route('/api/postMate', methods=['POST'])
-# def api_postMate():
-#     category_recv = request.form['category_send']
-#     age_recv = request.form['age_send']
-#     num_recv = request.form['num_send']
-#     gender_recv = request.form['gender_send']
-#
-#     option = {
-#         'category': category_recv,
-#         'age': age_recv,
-#         'num': num_recv,
-#         'gender': gender_recv
-#     }
-#     db.mates.insert_one(option)
-#
-#     return jsonify({'result': 'success'})
-
 @app.route('/api/searchMate',methods=['POST'])
 def api_searchMate():
     category_recv = request.form['category_send']
@@ -479,6 +466,13 @@ def api_getWeek():
     week = list(db.week.find({},{'_id': 0}));
     return jsonify({'result': 'success', 'week':week})
 
+@app.route('/api/onedayDetail', methods=['POST'])
+def api_onedayDetail():
+    id_recv = int(request.form['id_send'])
+
+    values = db.oneday.find_one({'oneday_id': id_recv}, {'_id': 0});
+    return jsonify({'result': 'success', 'values': values})
+
 # 제품공유
 @app.route('/api/gettag', methods=['POST'])
 def api_gettag():
@@ -489,14 +483,12 @@ def api_gettag():
         values = list(db.products.find({'product_tag': tag_recv}, {'_id': 0}));  # {_id : 0}은 원하지 않는 필드를 제외하는 것
     return jsonify({'result': 'success', 'values': values})
 
-
 @app.route('/api/productDetail', methods=['POST'])
 def api_productDetail():
     id_recv = int(request.form['id_send'])
 
     values = db.products.find_one({'productpost_id': id_recv}, {'_id': 0});
     return jsonify({'result': 'success', 'values': values})
-
 
 @app.route('/api/postProduct', methods=['POST'])
 def api_postProduct():
