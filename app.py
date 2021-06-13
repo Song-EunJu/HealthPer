@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
-
+import random
 # mongoDB
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
@@ -442,14 +442,27 @@ def api_postOneday():
     breakfast_recv = request.form['breakfast_send']
     lunch_recv = request.form['lunch_send']
     dinner_recv = request.form['dinner_send']
-    # photo_recv = request.form['photo_send']
 
+    if (db.oneday.count()) == 0:
+        oneday_id = 1
+    else:
+        oneday_id = db.oneday.count() + 1
+
+    photo = [
+        'https://i.pinimg.com/236x/2f/ef/7b/2fef7bd82d994b884d68c09cbe61684c.jpg',
+        'https://i.pinimg.com/564x/5c/56/f8/5c56f8dbed6034dfab02457830b245d4.jpg',
+        'https://i.pinimg.com/564x/0b/e2/06/0be206ede4d13afc893291d520fa3a28.jpg',
+        'https://i.pinimg.com/564x/d4/99/3d/d4993dac7793786373d9388d7606d0f0.jpg',
+        'https://i.pinimg.com/564x/11/a2/20/11a220e625e5b93d9355fd6b9d207882.jpg'
+    ]
+    num = random.randrange(0,5)
     meal = {
+        'oneday_id': oneday_id,
         'dietname': dietname_recv,
         'breakfast': breakfast_recv,
         'lunch': lunch_recv,
         'dinner': dinner_recv,
-        'photo' : "https://i.pinimg.com/564x/45/ad/9e/45ad9ea38cc8d8c8c7332f7068fe1ce3.jpg"
+        'photo': photo[num]
     }
 
     db.oneday.insert_one(meal)

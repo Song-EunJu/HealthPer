@@ -70,7 +70,8 @@
                             let temp = `<div class="card">
                                   <img src=${result[i]['photo']} class="card-img-top" alt="원데이 레시피 사진" >
                                   <div class="desc">
-                                      <a href="" class="week_title">${result[i]['dietname']}</a>
+                                      <a href="/onedayDetail?id=${result[i]['oneday_id']}" class="oneday_title">${result[i]['dietname']}</a>
+
                                   </div>
                             </div>`;
                             $('.cards').append(temp);
@@ -79,6 +80,8 @@
                 }
             });
         }
+
+
 
         function getOneday(){ // 전체 메이트 글 보여주기
             $.ajax({

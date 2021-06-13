@@ -13,25 +13,24 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-						<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					</button>
 					<h3 class="modal-title" id="exampleModalLabel">모달테스트</h3>
 				</div>
 
 				<div class="modal-body">내용 입력 !!</div>
 
 				<div class="modal-footer">
-					<a class="btn" id="modalY" href="#">예</a>
-					<button class="btn" type="button" data-dismiss="modal">아니요</button>
+					<button class="btn" type="button" data-dismiss="modal" id="close">닫기</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
 		$('#testBtn').click(function(e){
-			e.preventDefault();
 			$('#testModal').modal("show");
+		});
+
+		$('#close').click(function(e){
+			$('#testModal').modal("hide");
 		});
 	</script>
 </body>
