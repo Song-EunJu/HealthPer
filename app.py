@@ -21,10 +21,6 @@ def index():
 def login():
     return render_template('login.html')
 
-# @app.route('/logout')
-# def login():
-#     return render_template('login.html')
-
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -496,7 +492,6 @@ def api_postProduct():
     src_recv = request.form['src_send']
     tag_recv = request.form['tag_send']
     detail_recv = request.form['detail_send']
-    current_num = 0
 
     if (db.products.count()) == 0:
         product_id = 1
